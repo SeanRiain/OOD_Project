@@ -1,0 +1,54 @@
+﻿<Window x:Class="ProjectWorking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectWorking"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="2000" Width="1000">
+    <Grid Margin="0,0,0,0">
+        <TextBlock HorizontalAlignment="Left" Margin="200,75,0,0" TextWrapping="Wrap" Text="User Location" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" TextDecorations="Underline"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,75,175,0" TextWrapping="Wrap" Text="Destination Location" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Width="261" RenderTransformOrigin="0.413,0.685"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="75,150,0,0" TextWrapping="Wrap" Text="Region:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="75,200,0,0" TextWrapping="Wrap" Text="Street Name:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="75,250,0,0" TextWrapping="Wrap" Text="Current Position:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+
+        <TextBlock HorizontalAlignment="Right" Margin="0,150,375,0" TextWrapping="Wrap" Text="Region Selected:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,200,405,0" TextWrapping="Wrap" Text="Street Name:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,250,373,0" TextWrapping="Wrap" Text="Current Position:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+
+        <Rectangle HorizontalAlignment="Left" Height="250" Margin="64,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
+        <Rectangle HorizontalAlignment="Left" Height="250" Margin="527,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="75,625,0,0" TextWrapping="Wrap" Text="Displaying Information On:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="75,675,0,0" TextWrapping="Wrap" Text="Coordinates:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="75,725,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox x:Name="tbxAreaName" HorizontalAlignment="Left" Margin="310,625,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
+        <TextBox x:Name="tbxCoordinates1" HorizontalAlignment="Left" Margin="190,675,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
+        <TextBox x:Name="tbxStatus" HorizontalAlignment="Left" Margin="150,725,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
+
+        <Rectangle HorizontalAlignment="Left" Height="250" Margin="64,770,0,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
+        <Rectangle HorizontalAlignment="Right" Height="250" Margin="0,770,48,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
+
+
+
+        <TextBlock HorizontalAlignment="Left" Margin="425,1099,0,0" TextWrapping="Wrap" Text="Report Information" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" TextDecorations="Underline"/>
+        <TextBlock HorizontalAlignment="Left" Margin="184,1174,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" FontWeight="Bold" TextDecorations="Underline" FontSize="16"/>
+        <TextBlock HorizontalAlignment="Left" Margin="456,1174,0,0" TextWrapping="Wrap" Text="Coordinates" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" TextDecorations="Underline"/>
+        <TextBlock HorizontalAlignment="Left" Margin="774,1174,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" TextDecorations="Underline"/>
+
+        <Rectangle HorizontalAlignment="Left" Height="200" Margin="82,1224,0,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
+        <Rectangle HorizontalAlignment="Left" Height="200" Margin="382,1224,0,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
+        <Rectangle HorizontalAlignment="Right" Height="200" Margin="0,1224,68,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
+
+        <RadioButton x:Name="rbRed" Content="- In Need of Assistance" HorizontalAlignment="Left" Margin="107,1269,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <RadioButton x:Name="rbOrange" Content="- Situation Being Managed" HorizontalAlignment="Left" Margin="107,1299,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <RadioButton x:Name="rbGreen" Content="- Situation De-Escalated" HorizontalAlignment="Left" Margin="107,1329,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <RadioButton x:Name="rbBlack" Content="- Danger" HorizontalAlignment="Left" Margin="107,1359,0,0" VerticalAlignment="Top" FontSize="14" Background="White"/>
+
+        <TextBox x:Name="tbxCoordinates" HorizontalAlignment="Left" Margin="395,1239,0,0" TextWrapping="Wrap" Text="Input coordinates here as e.g. 82, 19...." VerticalAlignment="Top" Width="225" FontStyle="Italic" Height="175"/>
+        <TextBox x:Name="tbxReportMessage" HorizontalAlignment="Left" Margin="694,1239,0,0" TextWrapping="Wrap" Text="Type custom message here...." VerticalAlignment="Top" Width="225" Height="175"/>
+
+    </Grid>
+</Window>
