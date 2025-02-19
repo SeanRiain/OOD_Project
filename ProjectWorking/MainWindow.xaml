@@ -45,21 +45,24 @@
         <TextBlock  Text="User Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <TextBlock  Text="Destination Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="5">
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="5">
             <TextBlock    Text="Region:"  FontSize="18" FontWeight="Bold"  Grid.Row="1" Grid.Column="0"/>
             <TextBlock    Text="Street Name:"  FontSize="18" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
             <TextBlock    Text="Current Position:"  FontSize="18" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="5">
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
             <TextBlock Text="Region Selected:" FontSize="18" FontWeight="Bold"/>
             <TextBlock Text="Street Name:"  FontSize="18" FontWeight="Bold"/>
             <TextBlock Text="Position:"  FontSize="18" FontWeight="Bold"/>
         </StackPanel>
 
-        <Image Source="/images/map.png" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10"/>
+        <Rectangle  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
+        <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
+        
+        <Image Source="/images/map.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
 
-        <Image Source="/images/map.png" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10"/>
+        <Image Source="/images/map.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
 
         <Grid Grid.Column="0" Grid.Row="4" ShowGridLines="True" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
@@ -74,11 +77,6 @@
         </Grid>
 
 
-
-        <Rectangle  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
-        <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
-
-        
         <TextBlock   Text="Displaying Information On:"  FontSize="18" FontWeight="Bold"  Grid.Row="6" VerticalAlignment="Bottom"/>
         <TextBlock   Text="Coordinates:"  FontSize="18" FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center"/>
         <TextBlock   Text="Status:"  FontSize="18" FontWeight="Bold"  Grid.Row="8" VerticalAlignment="Top"/>
@@ -97,7 +95,7 @@
         <ListBox x:Name="lbxReportsC"  d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
         <ListBox x:Name="lbxReportsR"  d:ItemsSource="{d:SampleData ItemCount=5}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
 
-        <TextBlock  Text="Report Information"  FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock  Text="Report Information"  FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="12" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <TextBlock  Text="Status"  FontWeight="Bold" TextDecorations="Underline" FontSize="16" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock  Text="Coordinates"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock  Text="Message"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -124,11 +122,16 @@
         <TextBlock x:Name="tblkRegionAlerts" Text="Region Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="20"/>
 
         <Rectangle Stroke="Black" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+
     </Grid>
 </Window>
