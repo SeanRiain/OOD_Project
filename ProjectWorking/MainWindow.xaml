@@ -6,55 +6,129 @@
         xmlns:local="clr-namespace:ProjectWorking"
         mc:Ignorable="d"
         Title="MainWindow" Height="2000" Width="1000">
-    <Grid Margin="0,0,0,0">
-        <TextBlock HorizontalAlignment="Left" Margin="200,75,0,0" TextWrapping="Wrap" Text="User Location" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" TextDecorations="Underline"/>
-        <TextBlock HorizontalAlignment="Right" Margin="0,75,175,0" TextWrapping="Wrap" Text="Destination Location" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Width="261" RenderTransformOrigin="0.413,0.685"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Margin="75,150,0,0" TextWrapping="Wrap" Text="Region:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="75,200,0,0" TextWrapping="Wrap" Text="Street Name:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="75,250,0,0" TextWrapping="Wrap" Text="Current Position:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
 
-        <TextBlock HorizontalAlignment="Right" Margin="0,150,375,0" TextWrapping="Wrap" Text="Region Selected:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Right" Margin="0,200,405,0" TextWrapping="Wrap" Text="Street Name:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Right" Margin="0,250,442,0" TextWrapping="Wrap" Text="Position:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBlock  Text="User Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock  Text="Destination Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
-        <Rectangle HorizontalAlignment="Left" Height="250" Margin="64,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
-        <Rectangle HorizontalAlignment="Left" Height="250" Margin="527,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="425"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="5">
+            <TextBlock    Text="Region:"  FontSize="18" FontWeight="Bold"  Grid.Row="1" Grid.Column="0"/>
+            <TextBlock    Text="Street Name:"  FontSize="18" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock    Text="Current Position:"  FontSize="18" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+        </StackPanel>
 
-        <TextBlock HorizontalAlignment="Left" Margin="74,593,0,0" TextWrapping="Wrap" Text="Displaying Information On:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="74,643,0,0" TextWrapping="Wrap" Text="Coordinates:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="74,693,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBox x:Name="tbxAreaName" HorizontalAlignment="Left" Margin="309,593,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
-        <TextBox x:Name="tbxCoordinates1" HorizontalAlignment="Left" Margin="189,643,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
-        <TextBox x:Name="tbxStatus" HorizontalAlignment="Left" Margin="149,693,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="5">
+            <TextBlock Text="Region Selected:" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="Street Name:"  FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="Position:"  FontSize="18" FontWeight="Bold"/>
+        </StackPanel>
 
-        <Rectangle HorizontalAlignment="Left" Height="250" Margin="64,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="425"/>
-        <Rectangle HorizontalAlignment="Left" Height="250" Margin="527,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="425"/>
+        <Image Source="/images/map.png" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10"/>
 
-        <Label Content="Responder Reports" HorizontalAlignment="Left" Margin="191,828,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <Label Content="Civillian Reports" HorizontalAlignment="Left" Margin="666,828,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <ListBox x:Name="lbxReportsR" HorizontalAlignment="Left" Height="214" Margin="82,884,0,0" VerticalAlignment="Top" Width="388" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-        <ListBox x:Name="lbxReportsC" HorizontalAlignment="Left" Height="214" Margin="540,884,0,0" VerticalAlignment="Top" Width="392" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Image Source="/images/map.png" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="426,1213,0,0" TextWrapping="Wrap" Text="Report Information" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" TextDecorations="Underline"/>
-        <TextBlock HorizontalAlignment="Left" Margin="184,1288,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" FontWeight="Bold" TextDecorations="Underline" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="456,1288,0,0" TextWrapping="Wrap" Text="Coordinates" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" TextDecorations="Underline"/>
-        <TextBlock HorizontalAlignment="Left" Margin="774,1288,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" TextDecorations="Underline"/>
+        <Grid Grid.Column="0" Grid.Row="4" ShowGridLines="True" Grid.ColumnSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
 
-        <Rectangle HorizontalAlignment="Left" Height="200" Margin="82,1338,0,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
-        <Rectangle HorizontalAlignment="Left" Height="200" Margin="382,1338,0,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
-        <Rectangle HorizontalAlignment="Right" Height="200" Margin="0,1338,68,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
 
-        <RadioButton x:Name="rbRed" Content="- In Need of Assistance" HorizontalAlignment="Left" Margin="108,1383,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <RadioButton x:Name="rbOrange" Content="- Situation Being Managed" HorizontalAlignment="Left" Margin="108,1413,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <RadioButton x:Name="rbGreen" Content="- Situation De-Escalated" HorizontalAlignment="Left" Margin="108,1443,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <RadioButton x:Name="rbBlack" Content="- Danger" HorizontalAlignment="Left" Margin="108,1473,0,0" VerticalAlignment="Top" FontSize="14" Background="White"/>
 
-        <TextBox x:Name="tbxCoordinates" HorizontalAlignment="Left" Margin="396,1353,0,0" TextWrapping="Wrap" Text="Input coordinates here as e.g. 82, 19...." VerticalAlignment="Top" Width="224" FontStyle="Italic" Height="175"/>
-        <TextBox x:Name="tbxReportMessage" HorizontalAlignment="Left" Margin="694,1353,0,0" TextWrapping="Wrap" Text="Type custom message here...." VerticalAlignment="Top" Width="226" Height="175"/>
-        <Rectangle Stroke="Black" Margin="82,1634,68,198"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="108,1648,80,212"/>
-        <TextBlock x:Name="tblkGeneralAlerts" HorizontalAlignment="Center" Margin="0,1584,0,0" TextWrapping="Wrap" Text="General Alerts" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" TextDecorations="Underline"/>
+        <Rectangle  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
+        <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
 
+        
+        <TextBlock   Text="Displaying Information On:"  FontSize="18" FontWeight="Bold"  Grid.Row="6" VerticalAlignment="Bottom"/>
+        <TextBlock   Text="Coordinates:"  FontSize="18" FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center"/>
+        <TextBlock   Text="Status:"  FontSize="18" FontWeight="Bold"  Grid.Row="8" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxAreaName"   Text="TextBox"  FontSize="18" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="tbxCoordinates1"   Text="TextBox"  FontSize="18" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"/>
+        <TextBox x:Name="tbxStatus"  Text="TextBox"  FontSize="18"  Grid.Row="8" Grid.Column="1" VerticalAlignment="Top"/>
+
+
+        <Label Content="Responder Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Label Content="Civillian Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <Rectangle  Stroke="Black"  Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+        <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+
+
+        <ListBox x:Name="lbxReportsC"  d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxReportsR"  d:ItemsSource="{d:SampleData ItemCount=5}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+
+        <TextBlock  Text="Report Information"  FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock  Text="Status"  FontWeight="Bold" TextDecorations="Underline" FontSize="16" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock  Text="Coordinates"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock  Text="Message"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Rectangle  Stroke="Black" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+        <Rectangle  Stroke="Black" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="14" Grid.RowSpan="2"/>
+        <Rectangle  Stroke="Black" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Row="14" Grid.Column="0" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Center" Margin="5">
+            <RadioButton x:Name="rbRed" Content="- In Need of Assistance"  FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+            <RadioButton x:Name="rbOrange" Content="- Situation Being Managed"  FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+            <RadioButton x:Name="rbGreen" Content="- Situation De-Escalated" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+            <RadioButton x:Name="rbBlack" Content="- Danger"  FontSize="14" Background="White" Grid.Column="0" Grid.Row="14" Grid.RowSpan="2"/>
+        </StackPanel>
+        
+        <TextBox x:Name="tbxCoordinates"  Text="Input coordinates here as e.g. 82, 19...."  FontStyle="Italic" Grid.Column="1" Grid.Row="14" Grid.RowSpan="2"/>
+        <TextBox x:Name="tbxReportMessage"  Text="Type custom message here...." VerticalAlignment="Top" Grid.Column="2" Grid.Row="14" Grid.RowSpan="2"/>
+
+        <TextBlock x:Name="tblkGeneralAlerts" Text="General Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="16"/>
+        <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="3"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="2"/>
+
+
+        <TextBlock x:Name="tblkRegionAlerts" Text="Region Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="20"/>
+
+        <Rectangle Stroke="Black" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+
+        <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+
+        <Rectangle Stroke="Black" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+
+        <Rectangle Stroke="Black" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
     </Grid>
 </Window>
