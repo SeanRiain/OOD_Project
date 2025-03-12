@@ -40,11 +40,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnTesting"  Content="Simulate Emergency"  FontSize="18" FontWeight="Bold"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
+        <Button x:Name="btnTesting"  Content="Simulate Emergency"  FontSize="18" FontWeight="Bold"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Click="btnTesting_Click"/>
 
 
-        <TextBlock  Text="User Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <TextBlock  Text="Destination Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="tblkUserL"  Text="User Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="tblkDestinationL"  Text="Destination Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
 
         <TextBlock    Text="Street Name:"  FontSize="18" FontWeight="Bold" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -60,17 +60,19 @@
             <TextBlock Text="Street Name:"  FontSize="18" FontWeight="Bold"/>
             <TextBlock Text="Position:"  FontSize="18" FontWeight="Bold"/>
         </StackPanel>
-        <TextBox x:Name="fwf"   Text="Test"  FontSize="18"  Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="sfsf"   Text="Test"  FontSize="18"  Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="fsfe"  Text="Test"  FontSize="18"  Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxDestinationName"   Text="Test"  FontSize="18"  Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="tbxDestinationRegion"   Text="Test"  FontSize="18"  Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="tbxDestinationCoordinates"  Text="Test"  FontSize="18"  Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="tbxRegionDisplayed"  Text="[results of left screen select]"  FontSize="18"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
 
         <Rectangle  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
         <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
 
-        <Image Source="/images/map.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
+        <Image Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
 
-        <Image Source="/images/map.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
+        <Image Source="/images/SampleRegion.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
 
         <Grid Grid.Column="0" Grid.Row="4" ShowGridLines="True" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
@@ -85,32 +87,32 @@
         </Grid>
 
 
-        <TextBlock   Text="Displaying Information On:"  FontSize="18" FontWeight="Bold"  Grid.Row="6" VerticalAlignment="Bottom"/>
-        <TextBlock   Text="Coordinates:"  FontSize="18" FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center"/>
-        <TextBlock   Text="Status:"  FontSize="18" FontWeight="Bold"  Grid.Row="8" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbxAreaName"   Text="TextBox"  FontSize="18" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="tbxCoordinates1"   Text="TextBox"  FontSize="18" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbxStatus"  Text="TextBox"  FontSize="18"  Grid.Row="8" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="tblkSelectedNodeName"   Text="Displaying Information On:"  FontSize="18" FontWeight="Bold"  Grid.Row="6" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="tblkSelectedNodeCoordinates"   Text="Coordinates:"  FontSize="18" FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center"/>
+        <TextBlock x:Name="tblkSelectedNodeStatus"   Text="Status:"  FontSize="18" FontWeight="Bold"  Grid.Row="8" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxSelectedAreaName"   Text="TextBox"  FontSize="18" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="tbxSelectedCoordinates"   Text="TextBox"  FontSize="18" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tbxSelectedNodeStatus"  Text="TextBox"  FontSize="18"  Grid.Row="8" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
-        <Button x:Name="btnMarkAsDestination"  Content="Mark as Destination:"  FontSize="18" FontWeight="Bold"  Grid.Row="7" Grid.Column="2" VerticalAlignment="Center"/>
+        <Button x:Name="btnMarkAsDestination"  Content="Mark as Destination:"  FontSize="18" FontWeight="Bold"  Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Click="btnMarkAsDestination_Click"/>
 
 
-        <Label Content="Responder Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <Label Content="Civillian Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblReportsR" Content="Responder Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblReportsC" Content="Civillian Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
         <Rectangle  Stroke="Black"  Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
         <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
 
 
-        <ListBox x:Name="lbxReportsC"  d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
-        <ListBox x:Name="lbxReportsR"  d:ItemsSource="{d:SampleData ItemCount=5}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxReportsR"  d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxReportsC"  d:ItemsSource="{d:SampleData ItemCount=5}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="3"/>
 
         <TextBlock  Text="Report Information"  FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="12" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <TextBlock  Text="Status"  FontWeight="Bold" TextDecorations="Underline" FontSize="16" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock  Text="Coordinates"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock  Text="Message"  FontSize="16" FontWeight="Bold" TextDecorations="Underline" Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Rectangle  Stroke="Black" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
+        <Rectangle x:Name="rectStatus"  Stroke="Black" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
         <Rectangle  Stroke="Black" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="14" Grid.RowSpan="2"/>
         <Rectangle  Stroke="Black" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
 
@@ -121,30 +123,30 @@
             <RadioButton x:Name="rbBlack" Content="- Danger"  FontSize="14" Background="White" Grid.Column="0" Grid.Row="14" Grid.RowSpan="2"/>
         </StackPanel>
 
-        <TextBox x:Name="tbxCoordinates"  Text="Input coordinates here as e.g. 82, 19...."  FontStyle="Italic" Grid.Column="1" Grid.Row="14" Grid.RowSpan="2"/>
-        <TextBox x:Name="tbxReportMessage"  Text="Type custom message here...."  Grid.Column="2" Grid.Row="14" Grid.RowSpan="2" Grid.ColumnSpan="2" TextChanged="tbxReportMessage_TextChanged"/>
+        <TextBox x:Name="tbxCoordinatesReport"  Text="Input coordinates here as e.g. 82, 19...."  FontStyle="Italic" Grid.Column="1" Grid.Row="14" Grid.RowSpan="2"/>
+        <TextBox x:Name="tbxReportMessage"  Text="Type custom message here...."  Grid.Column="2" Grid.Row="14" Grid.RowSpan="2" Grid.ColumnSpan="2" />
 
-        <Button x:Name="btnReportSubmission"  Content="Submit Report"  FontSize="18" FontWeight="Bold"  Grid.Row="16" Grid.Column="3" VerticalAlignment="Top"/>
+        <Button x:Name="btnReportSubmission"  Content="Submit Report"  FontSize="18" FontWeight="Bold"  Grid.Row="16" Grid.Column="3" VerticalAlignment="Top" Click="btnReportSubmission_Click"/>
 
 
         <TextBlock x:Name="tblkGeneralAlerts" Text="General Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="16"/>
         <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="3"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxGeneralAlerts" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="3"/>
 
 
         <TextBlock x:Name="tblkRegionAlerts" Text="Region Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="20"/>
 
         <Rectangle Stroke="Black" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxRegionAlerts1" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxRegionAlerts2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxRegionAlerts3" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
         <Rectangle Stroke="Black" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
+        <ListBox x:Name="lbxRegionAlerts4" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="21" Grid.RowSpan="3"/>
 
     </Grid>
 </Window>

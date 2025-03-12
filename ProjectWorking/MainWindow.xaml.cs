@@ -27,7 +27,33 @@ namespace ProjectWorking
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
+        }
 
+        private void btnTesting_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e)
+        {
+            //Get the id of the region the node is in
+            //Get its name
+            //Get its coordinates
+
+            //tbxDestinationRegion.Text = noderegion
+            //tbxDestinationName.Text = nodename
+            //tbxDestinationCoordinates.Text = nodecoordinates
+        }
+
+        private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
+        {
+            //Read which radio button was selected
+            //Read the coordinates inputted
+            //Read the custom message - if any
+
+            //Create a Responder report class object with the above values + the current time
+            //Change the node color based upon the radio button selection
         }
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
