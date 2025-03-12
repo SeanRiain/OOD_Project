@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace ProjectWorking
 {
-    class Reports
+    public class ResponderReports
     {
+        //string[] Status = new string[4] { "In Need of Assistance", "Situation Being Managed", "Situation De-Escalated", "Danger" } { get; set; };
+        int TeamNumber { get; set; }
+        DateTime TimeLogged { get; set; }
+        string ResponderMessage { get; set; }
+
+    }
+
+    public class CivillianReports
+    {
+        int SocialSecurityNumber { get; set; }
+        DateTime TimeLogged { get; set; }
+        string CivillianMessage { get; set; }
+
     }
 }
