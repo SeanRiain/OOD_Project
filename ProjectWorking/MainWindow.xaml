@@ -40,6 +40,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Button x:Name="btnTesting"  Content="Simulate Emergency"  FontSize="18" FontWeight="Bold"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
 
 
         <TextBlock  Text="User Location" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
@@ -66,7 +67,7 @@
 
         <Rectangle  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
         <Rectangle  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
-        
+
         <Image Source="/images/map.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
 
         <Image Source="/images/map.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
@@ -90,6 +91,8 @@
         <TextBox x:Name="tbxAreaName"   Text="TextBox"  FontSize="18" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom"/>
         <TextBox x:Name="tbxCoordinates1"   Text="TextBox"  FontSize="18" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbxStatus"  Text="TextBox"  FontSize="18"  Grid.Row="8" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+        <Button x:Name="btnMarkAsDestination"  Content="Mark as Destination:"  FontSize="18" FontWeight="Bold"  Grid.Row="7" Grid.Column="2" VerticalAlignment="Center"/>
 
 
         <Label Content="Responder Reports"  FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
@@ -117,9 +120,12 @@
             <RadioButton x:Name="rbGreen" Content="- Situation De-Escalated" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Grid.RowSpan="2"/>
             <RadioButton x:Name="rbBlack" Content="- Danger"  FontSize="14" Background="White" Grid.Column="0" Grid.Row="14" Grid.RowSpan="2"/>
         </StackPanel>
-        
+
         <TextBox x:Name="tbxCoordinates"  Text="Input coordinates here as e.g. 82, 19...."  FontStyle="Italic" Grid.Column="1" Grid.Row="14" Grid.RowSpan="2"/>
-        <TextBox x:Name="tbxReportMessage"  Text="Type custom message here...." VerticalAlignment="Top" Grid.Column="2" Grid.Row="14" Grid.RowSpan="2" Grid.ColumnSpan="2" TextChanged="tbxReportMessage_TextChanged"/>
+        <TextBox x:Name="tbxReportMessage"  Text="Type custom message here...."  Grid.Column="2" Grid.Row="14" Grid.RowSpan="2" Grid.ColumnSpan="2" TextChanged="tbxReportMessage_TextChanged"/>
+
+        <Button x:Name="btnReportSubmission"  Content="Submit Report"  FontSize="18" FontWeight="Bold"  Grid.Row="16" Grid.Column="3" VerticalAlignment="Top"/>
+
 
         <TextBlock x:Name="tblkGeneralAlerts" Text="General Alerts" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="18" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="16"/>
         <Rectangle Stroke="Black" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" Grid.RowSpan="3"/>
