@@ -23,20 +23,38 @@ namespace ProjectWorking
         public MainWindow()
         {
             InitializeComponent();
+            //Could nodes be generated here or in the method below?
+            //Their assigned values must be specified in either, database utility?
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
+            //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
         }
 
         private void btnTesting_Click(object sender, RoutedEventArgs e)
         {
+            //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
+            //Create a list of alerts of type "General", populate lbxGeneralAlerts with them
+            //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
+        }
+        private void Region_Click(object sender, RoutedEventArgs e) //dummy
+        {
+            //On selection of a region (through the right screen), the left screen must choose the correct option from
+            //some list of several regions and change its display accordingly.
+        }
 
+        private void Node_Click(object sender, RoutedEventArgs e) //dummy
+        {
+            //Generate OR load already established class objects of both type Responder and type Civillian
+            //Populate their respective list boxes with these objects - can they be saved or must they be randomly generated every time?
+            //The three text boxes ***UNDER*** the left image should be affected by this click
         }
 
         private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e)
         {
+            //Get the node that is currently selected and read its information
             //Get the id of the region the node is in
             //Get its name
             //Get its coordinates
@@ -52,9 +70,18 @@ namespace ProjectWorking
             //Read the coordinates inputted
             //Read the custom message - if any
 
-            //Create a Responder report class object with the above values + the current time
-            //Change the node color based upon the radio button selection
+            ////Assign a status based on the radio button to the node specified by the coordinates
+            ////Assign the custom message to that node
+
+            ////Create a Responder report class object with the above values + the current time
+            ////Change the node color based upon the radio button selection
+            ////Populate the lbxReportsR with that class
         }
+
+
+
+
+
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
 
@@ -77,8 +104,8 @@ namespace ProjectWorking
         //the "message" section is determined by what was entered into the "custom message" box
         //This object should be displayed in the left list box in the report log section.
 
-        //A change im considering is a master button called "Simulate".
-        //If implemented, it would randomly generate some or all of the currently static values
+        //Master button called "btnTesting".
+        //Intended to randomly generate some or all of the currently static values
         //such as starting node status', the user location, the general alerts and the region alerts.
     }
 }
