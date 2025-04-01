@@ -8,7 +8,7 @@ namespace ProjectWorking
 {
     public class ResponderReports
     {
-        //string[] Status = new string[4] { "In Need of Assistance", "Situation Being Managed", "Situation De-Escalated", "Danger" } { get; set; };
+        string[] Status = new string[4] { "In Need of Assistance", "Situation Being Managed", "Situation De-Escalated", "Danger" };
         int TeamNumber { get; set; }
         DateTime TimeLogged { get; set; }
         string ResponderMessage { get; set; }
