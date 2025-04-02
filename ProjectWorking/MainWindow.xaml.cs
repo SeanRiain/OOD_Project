@@ -25,6 +25,8 @@ namespace ProjectWorking
             InitializeComponent();
             //Could nodes be generated here or in the method below?
             //Their assigned values must be specified in either, database utility?
+
+            //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
@@ -35,19 +37,56 @@ namespace ProjectWorking
 
         private void btnTesting_Click(object sender, RoutedEventArgs e)
         {
+            //Possibly choose a random region and node for the user location - affects the top left text boxes
+
             //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
             //Create a list of alerts of type "General", populate lbxGeneralAlerts with them
             //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
         }
-        private void Region_Click(object sender, RoutedEventArgs e) //dummy
+        public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
         {
-            //On selection of a region (through the right screen), the left screen must choose the correct option from
-            //some list of several regions and change its display accordingly.
+            string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+
+            string SelectedRegion;
+
+            var map = sender as Image; //"Map" is equal to the image property of the code line that this method/event is associated with
+            var position = MousePointer.GetPosition(map); //"Position" is equal to the x,y position of the mouse pointer relevant to the object interactable with it
+
+            int xPosition = (int)position.X;
+            //this int, is equal to an int version of the value of the position variable
+            //which gets it values from the GetPosition function applied to the dimensions of the map
+            int yPosition = (int)position.Y;
+
+            if (xPosition < 75 && yPosition < 52)
+            {
+                //rectRegion.image = regionA
+                RegionMap.Source = new BitmapImage(new Uri("/images/RegionA.png", UriKind.Relative));
+                SelectedRegion = Regions[0];
+            }
+            if (xPosition > 75 && yPosition < 52)
+            {
+                //rectRegion.image = regionB
+                RegionMap.Source = new BitmapImage(new Uri("/images/RegionB.png", UriKind.Relative));
+                SelectedRegion = Regions[1];
+            }
+            if (xPosition < 75 && yPosition > 52)
+            {
+                //rectRegion.image = regionC
+                RegionMap.Source = new BitmapImage(new Uri("/images/RegionC.png", UriKind.Relative));
+                SelectedRegion = Regions[2];
+            }
+            if (xPosition > 75 && yPosition > 52)
+            {
+                //rectRegion.image = regionD
+                RegionMap.Source = new BitmapImage(new Uri("/images/RegionD.png", UriKind.Relative));
+                SelectedRegion = Regions[3];
+            }
+            MessageBox.Show($"{xPosition},{yPosition}");
         }
 
         private void Node_Click(object sender, RoutedEventArgs e) //dummy
         {
-            //Generate OR load already established class objects of both type Responder and type Civillian
+            //Generate - OR load already established - class objects of both type Responder and type Civillian
             //Populate their respective list boxes with these objects - can they be saved or must they be randomly generated every time?
             //The three text boxes ***UNDER*** the left image should be affected by this click
         }
@@ -77,11 +116,6 @@ namespace ProjectWorking
             ////Change the node color based upon the radio button selection
             ////Populate the lbxReportsR with that class
         }
-
-
-
-
-
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
 
