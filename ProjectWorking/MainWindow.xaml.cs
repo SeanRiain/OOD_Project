@@ -42,6 +42,8 @@ namespace ProjectWorking
             //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
             //Create a list of alerts of type "General", populate lbxGeneralAlerts with them
             //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
+
+            //lbxReportsR.ItemsSource = 
         }
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
         {
