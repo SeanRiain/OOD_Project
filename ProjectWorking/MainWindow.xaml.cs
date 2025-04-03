@@ -44,6 +44,9 @@ namespace ProjectWorking
             //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
 
             //lbxReportsR.ItemsSource = 
+
+            DrawEllipse(200, 150, 50, 50); // x, y, width, height
+            DrawEllipse(100, 250, 50, 50);
         }
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
         {
@@ -117,6 +120,26 @@ namespace ProjectWorking
             ////Create a Responder report class object with the above values + the current time
             ////Change the node color based upon the radio button selection
             ////Populate the lbxReportsR with that class
+        }
+
+
+        private void DrawEllipse(double x, double y, double width, double height)
+        {
+            Ellipse ellipse = new Ellipse
+            {
+                Width = width,
+                Height = height,
+                Stroke = Brushes.Red,
+                StrokeThickness = 3,
+                Fill = Brushes.Red // Set to Transparent if you only want an outline
+            };
+
+            // Set position using Canvas coordinates
+            Canvas.SetLeft(ellipse, x);
+            Canvas.SetTop(ellipse, y);
+
+            // Add ellipse to Canvas (on top of the image)
+            MainCanvas.Children.Add(ellipse);
         }
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
