@@ -20,6 +20,8 @@ namespace ProjectWorking
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string SelectedRegion;
+        public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +35,11 @@ namespace ProjectWorking
         {
             //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
             //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
+            StartingCanvas_loaded();           
+            CanvasRegionA_Unloaded();
+            CanvasRegionB_Unloaded();
+            CanvasRegionC_Unloaded();
+            CanvasRegionD_Unloaded();
         }
 
         private void btnTesting_Click(object sender, RoutedEventArgs e)
@@ -44,15 +51,49 @@ namespace ProjectWorking
             //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
 
             //lbxReportsR.ItemsSource = 
+            Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
 
-            DrawEllipse(200, 150, 50, 50); // x, y, width, height
-            DrawEllipse(100, 250, 50, 50);
+            //This system only partially works as it requires the user to interact with 
+            //the map before hitting the testing button
+            if (SelectedRegion == Regions[0])
+            {
+                DrawEllipse(10, 50, 50, 50); // x, y, width, height
+                DrawEllipse(50, 100, 50, 50);
+                DrawEllipse(100, 150, 50, 50); 
+                DrawEllipse(150, 200, 50, 50);
+            }
+            if (SelectedRegion == Regions[1])
+            {
+                DrawEllipse(10, 50, 50, 50); // x, y, width, height
+                DrawEllipse(50, 100, 50, 50);
+                DrawEllipse(100, 150, 50, 50);
+                DrawEllipse(150, 200, 50, 50);
+            }
+            if (SelectedRegion == Regions[2])
+            {
+                DrawEllipse(10, 50, 50, 50); // x, y, width, height
+                DrawEllipse(50, 100, 50, 50);
+                DrawEllipse(100, 150, 50, 50);
+                DrawEllipse(150, 200, 50, 50);
+            }
+            if (SelectedRegion == Regions[3])
+            {
+                DrawEllipse(10, 50, 50, 50); // x, y, width, height
+                DrawEllipse(50, 100, 50, 50);
+                DrawEllipse(100, 150, 50, 50);
+                DrawEllipse(150, 200, 50, 50);
+            }
         }
+        
+
+
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
         {
-            string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+            //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+            //string SelectedRegion;
 
-            string SelectedRegion;
+            StartingCanvas_Unloaded(); 
+            //Unload the canvas with the starting content when any region is clicked
 
             var map = sender as Image; //"Map" is equal to the image property of the code line that this method/event is associated with
             var position = MousePointer.GetPosition(map); //"Position" is equal to the x,y position of the mouse pointer relevant to the object interactable with it
@@ -67,24 +108,46 @@ namespace ProjectWorking
                 //rectRegion.image = regionA
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionA.png", UriKind.Relative));
                 SelectedRegion = Regions[0];
+
+                CanvasRegionA_loaded(); //load the canvas the unique set of nodes is on
+
+                //unload the others
+                CanvasRegionB_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionD_Unloaded();
             }
             if (xPosition > 75 && yPosition < 52)
             {
                 //rectRegion.image = regionB
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionB.png", UriKind.Relative));
                 SelectedRegion = Regions[1];
+                CanvasRegionB_loaded();
+
+                CanvasRegionA_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionD_Unloaded();
             }
             if (xPosition < 75 && yPosition > 52)
             {
                 //rectRegion.image = regionC
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionC.png", UriKind.Relative));
                 SelectedRegion = Regions[2];
+                CanvasRegionC_loaded();
+
+                CanvasRegionB_Unloaded();
+                CanvasRegionA_Unloaded();
+                CanvasRegionD_Unloaded();
             }
             if (xPosition > 75 && yPosition > 52)
             {
                 //rectRegion.image = regionD
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionD.png", UriKind.Relative));
                 SelectedRegion = Regions[3];
+                CanvasRegionD_loaded();
+
+                CanvasRegionB_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionA_Unloaded();
             }
             MessageBox.Show($"{xPosition},{yPosition}");
         }
@@ -139,7 +202,48 @@ namespace ProjectWorking
             Canvas.SetTop(ellipse, y);
 
             // Add ellipse to Canvas (on top of the image)
-            MainCanvas.Children.Add(ellipse);
+            StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
+        }
+
+        public void StartingCanvas_Unloaded()
+        {
+
+        }
+        public void CanvasRegionA_Unloaded()
+        {
+
+        }
+        public void CanvasRegionB_Unloaded()
+        {
+
+        }
+        public void CanvasRegionC_Unloaded()
+        {
+
+        }
+        public void CanvasRegionD_Unloaded()
+        {
+
+        }
+        public void StartingCanvas_loaded()
+        {
+
+        }
+        public void CanvasRegionA_loaded()
+        {
+
+        }
+        public void CanvasRegionB_loaded()
+        {
+
+        }
+        public void CanvasRegionC_loaded()
+        {
+
+        }
+        public void CanvasRegionD_loaded()
+        {
+
         }
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
