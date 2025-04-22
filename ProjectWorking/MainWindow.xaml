@@ -76,7 +76,7 @@
         <Canvas Name="StartingCanvas">
             <Image x:Name="CityMap0" Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10" MouseDown="mdClickMap"/>
 
-            <Image x:Name="RegionMap" Source="/images/SampleRegion.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
+            <Image x:Name="RegionMap" Source="/images/RegionBlank.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
         </Canvas>
         <Canvas Name="CanvasRegionA">
             <Image x:Name="CityMap1" Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10" MouseDown="mdClickMap"/>

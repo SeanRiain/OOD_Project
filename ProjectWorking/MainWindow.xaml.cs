@@ -15,26 +15,41 @@ using System.Windows.Shapes;
 
 namespace ProjectWorking
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+
+        public List<CivillianReports> CivillianReportsSet1 = new List<CivillianReports>();
+        public List<CivillianReports> CivillianReportsSet2 = new List<CivillianReports>();
+        public List<CivillianReports> CivillianReportsSet3 = new List<CivillianReports>();
+
+        CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
+        //CivillianReports Set1Report2 = new CivillianReports(449, (2014, 11, 17), "test");
+        //CivillianReports Set1Report3 = new CivillianReports(449, (2014, 11, 17), "test");
+
+
+        //"civillianreports does not contain a constructor that takes 3 arguments", yes it does???
+        //The .add function is also not working.
+        //Once fixed, repeat this process with the others, then find a way for btnTesting to pick a random set and display that in the list box
+
+        //The same can be done for responderReports, but far more imporantly is the functionality of them being created by the user's interaction
+        //with the report submission section and submission of that information which is then displayed in the text box.
+        //I am also unsure if these report instances should be created here or in the btnTesting_click method.
+
+
         public MainWindow()
         {
             InitializeComponent();
-            //Could nodes be generated here or in the method below?
-            //Their assigned values must be specified in either, database utility?
-
-            //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
             //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
+
+            RegionMap.Source = new BitmapImage(new Uri("/images/RegionBlank.png", UriKind.Relative));
+
             StartingCanvas_loaded();           
             CanvasRegionA_Unloaded();
             CanvasRegionB_Unloaded();
@@ -47,14 +62,24 @@ namespace ProjectWorking
             //Possibly choose a random region and node for the user location - affects the top left text boxes
 
             //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
-            //Create a list of alerts of type "General", populate lbxGeneralAlerts with them
-            //Create a list of reports of type "Region", populate the 4 seperate region list boxes with them
 
-            //lbxReportsR.ItemsSource = 
+            //Create a list of alerts of type "General", populate lbxGeneralAlerts with them
+            //Create a list of alerts of type "Region", populate the 4 seperate region list boxes with them
+
+            //[Some sort of random select of the civillian reports sets]
+            //lbxReportsC.ItemsSource = [the set of civillian reports chosen]
+
             Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
+            Random Regions0to3 = new Random(); //how to set limits on a random??
+
 
             //This system only partially works as it requires the user to interact with 
             //the map before hitting the testing button
+#region CanvasSelect
+            if (SelectedRegion == null)
+            {
+                SelectedRegion == Regions[Regions0to3]; //there is definitely an easy solution to doing this
+            }
             if (SelectedRegion == Regions[0])
             {
                 DrawEllipse(10, 50, 50, 50); // x, y, width, height
@@ -82,10 +107,13 @@ namespace ProjectWorking
                 DrawEllipse(50, 100, 50, 50);
                 DrawEllipse(100, 150, 50, 50);
                 DrawEllipse(150, 200, 50, 50);
-            }
-        }
-        
 
+                //Each node (each line) has a x,y position.
+                //I need to find a way to communicate with that using the coordinates text box in the report submission section.
+            }
+
+            #endregion
+        }
 
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
         {
@@ -192,9 +220,9 @@ namespace ProjectWorking
             {
                 Width = width,
                 Height = height,
-                Stroke = Brushes.Red,
+                Stroke = Brushes.Black,
                 StrokeThickness = 3,
-                Fill = Brushes.Red // Set to Transparent if you only want an outline
+                Fill = Brushes.White // Set to Transparent if you only want an outline
             };
 
             // Set position using Canvas coordinates
