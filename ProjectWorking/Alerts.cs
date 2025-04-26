@@ -8,13 +8,19 @@ namespace ProjectWorking
 {
     public class GeneralAlerts
     {
-        string TargetRecipients { get; set; }
-        //string NatureOfAlert { get; set; }
-        string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+        public string TargetRecipients { get; set; }
 
-        string GeneralAlertMessage { get; set; }
+        public string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
 
-        DateTime TimeSent { get; set; }
+        public string GeneralAlertMessage { get; set; }
+        public DateTime TimeSent { get; set; }
+
+        public GeneralAlerts(string TargetRecipientsCon, string GeneralAlertMessageCon, DateTime TimeSentCon)
+        {
+            TargetRecipients = TargetRecipientsCon;
+            GeneralAlertMessage = GeneralAlertMessageCon;
+            TimeSent = TimeSentCon;
+        }
         public override string ToString()
         {
             return $"Alert Addressed to: {TargetRecipients} || Alert Category: {NatureOfAlert} || Additional Details: {GeneralAlertMessage} || Time Issued: {TimeSent}";
@@ -23,13 +29,28 @@ namespace ProjectWorking
 
     public class RegionAlerts
     {
-        string[] Region = new string[4] { "A", "B", "C", "D" } ;
+        string[] Regions = new string[4] { "A", "B", "C", "D" } ;
 
         string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+
+        //public string Region { get; set; }
+        //public string NatureOfAlert { get; set; }
 
         string RegionAlertMessage { get; set; }
 
         DateTime TimeSent { get; set; }
+
+        public RegionAlerts(string RegionCon, string NatureOfAlertCon, string MessageCon, DateTime TimeSentCon)
+        {
+            //if (!Regions.Contains(region)) throw new ArgumentException("Invalid Region");
+            //if (!NatureOfAlerts.Contains(natureOfAlert)) throw new ArgumentException("Invalid NatureOfAlert");
+
+            //Region = RegionCon;
+            //NatureOfAlert = NatureOfAlertCon;
+
+            RegionAlertMessage = MessageCon;
+            TimeSent = TimeSentCon;
+        }
 
         public override string ToString()
         {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace ProjectWorking
 {
@@ -24,13 +25,17 @@ namespace ProjectWorking
         public List<CivillianReports> CivillianReportsSet2 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet3 = new List<CivillianReports>();
 
-        CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
+        private List<Node> Nodes = new List<Node>();
+
+        private List<ResponderReports> ResponderReports = new List<ResponderReports>();
+        private List<GeneralAlerts> GeneralAlerts = new List<GeneralAlerts>();
+        private List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] { new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
+
+
+        //CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
         //CivillianReports Set1Report2 = new CivillianReports(449, (2014, 11, 17), "test");
         //CivillianReports Set1Report3 = new CivillianReports(449, (2014, 11, 17), "test");
 
-
-        //"civillianreports does not contain a constructor that takes 3 arguments", yes it does???
-        //The .add function is also not working.
         //Once fixed, repeat this process with the others, then find a way for btnTesting to pick a random set and display that in the list box
 
         //The same can be done for responderReports, but far more imporantly is the functionality of them being created by the user's interaction
@@ -41,6 +46,22 @@ namespace ProjectWorking
         public MainWindow()
         {
             InitializeComponent();
+
+            // Initialize CivillianReports sets
+            //This is the proper syntax for adding a class object to a list of the same type
+            //[List].add(new [class object type](however many properties it has));
+            CivillianReportsSet1.Add(new CivillianReports(449, new DateTime(2014, 10, 17), "Test Report 1"));
+            CivillianReportsSet1.Add(new CivillianReports(450, new DateTime(2014, 10, 18), "Test Report 2"));
+            CivillianReportsSet1.Add(new CivillianReports(451, new DateTime(2014, 10, 19), "Test Report 3"));
+
+            CivillianReportsSet2.Add(new CivillianReports(452, new DateTime(2014, 11, 10), "Test Report 4"));
+            CivillianReportsSet2.Add(new CivillianReports(453, new DateTime(2014, 11, 11), "Test Report 5"));
+            CivillianReportsSet2.Add(new CivillianReports(454, new DateTime(2014, 11, 12), "Test Report 6"));
+
+            CivillianReportsSet3.Add(new CivillianReports(455, new DateTime(2015, 12, 20), "Test Report 7"));
+            CivillianReportsSet3.Add(new CivillianReports(456, new DateTime(2015, 12, 21), "Test Report 8"));
+            CivillianReportsSet3.Add(new CivillianReports(457, new DateTime(2015, 12, 22), "Test Report 9"));
+
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
@@ -48,9 +69,18 @@ namespace ProjectWorking
             //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
             //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
 
-            RegionMap.Source = new BitmapImage(new Uri("/images/RegionBlank.png", UriKind.Relative));
+            Random Regionrng = new Random();
+            SelectedRegion = Regions[Regionrng.Next(0, Regions.Length)]; //goes through the regions array start to finish to select a region upon startup
+            RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative)); //this works as the regions in the region array have the same name
+            //as the images that are equvilant to them
+            tbxRegionDisplayed.Text = SelectedRegion;
 
-            StartingCanvas_loaded();           
+            Random Userrng = new Random();
+            tbxCurrentRegion.Text = SelectedRegion;
+            tbxNearestUserNode.Text = "Node1"; //can this be randomized?
+            tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
+
+            StartingCanvas_loaded(); //incorrect now that theres a random starting region? Maybe I should duplicate the region if statements up here?          
             CanvasRegionA_Unloaded();
             CanvasRegionB_Unloaded();
             CanvasRegionC_Unloaded();
