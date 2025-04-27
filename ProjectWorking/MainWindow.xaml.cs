@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,15 +21,19 @@ namespace ProjectWorking
     {
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+        private List<Node> Nodes = new List<Node>();
+
 
         public List<CivillianReports> CivillianReportsSet1 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet2 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet3 = new List<CivillianReports>();
 
-        private List<Node> Nodes = new List<Node>();
+        private List<ResponderReports> ResponderReports = new List<ResponderReports>(); //Does this need/can it have multiple sets
 
-        private List<ResponderReports> ResponderReports = new List<ResponderReports>();
-        private List<GeneralAlerts> GeneralAlerts = new List<GeneralAlerts>();
+        private List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
+        private List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
+        private List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
+ 
         private List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] { new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
 
 
@@ -69,12 +74,15 @@ namespace ProjectWorking
             //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
             //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
 
+            //random region on start
             Random Regionrng = new Random();
             SelectedRegion = Regions[Regionrng.Next(0, Regions.Length)]; //goes through the regions array start to finish to select a region upon startup
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative)); //this works as the regions in the region array have the same name
             //as the images that are equvilant to them
             tbxRegionDisplayed.Text = SelectedRegion;
 
+
+            //random user location on start
             Random Userrng = new Random();
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
@@ -89,6 +97,76 @@ namespace ProjectWorking
 
         private void btnTesting_Click(object sender, RoutedEventArgs e)
         {
+
+            Random Regionrng2 = new Random();
+            Nodes.Clear(); //Clear the list of currently recorded nodes
+
+            //random region on click
+            SelectedRegion = Regions[Regionrng2.Next(0, Regions.Length)];
+            tbxRegionDisplayed.Text = SelectedRegion; //Exact same process as above
+            RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
+
+            //random user location on click
+            Random Userrng2 = new Random();
+            tbxCurrentRegion.Text = SelectedRegion;
+            tbxNearestUserNode.Text = "Node1"; //can this be randomized?
+            tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; //change to correct x,y limits later
+
+            // Randomly choose one of the CivillianReports sets
+            Random ReportsCrng = new Random();
+            Random AlertsGrng = new Random();
+            Random AlertsRrng = new Random();
+
+
+
+            //Adding one of the lists of civillian reports to the civillian reports list box
+            var CReportSets = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 }; 
+            //a var is similar to a list without a name
+            lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)];
+
+            //Adding one of the lists of general alerts to the general alerts list box
+
+            var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
+            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
+
+            //Clear and draw nodes
+            StartingCanvas.Children.Clear(); //Again possibly irrelevent now
+            CanvasRegionA.Children.Clear();
+            CanvasRegionB.Children.Clear();
+            CanvasRegionC.Children.Clear();
+            CanvasRegionD.Children.Clear();
+
+            double[,] NodePositions = new double[,]
+            {
+                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 }
+            };
+            for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
+            {
+                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50);
+            }
+
+            // Generate alerts
+            GeneralAlertsSet1.Clear(); 
+            GeneralAlertsSet2.Clear();
+            GeneralAlertsSet3.Clear();
+            string[] AlertTypes = new string[] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+            GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", AlertTypes[AlertsGrng.Next(0, 4)], "Weather warning issued", DateTime.Now));
+            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
+
+            for (int counter = 0; counter < 4; counter++) 
+            {
+                RegionAlerts[counter].Clear();
+                RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), AlertTypes[AlertsRrng.Next(0, 4)],$"Incident reported in Region {Regions[counter]}", DateTime.Now));
+                switch (counter)
+                {
+                    case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break;
+                    case 1: lbxRegionAlerts2.ItemsSource = RegionAlerts[counter]; break;
+                    case 2: lbxRegionAlerts3.ItemsSource = RegionAlerts[counter]; break;
+                    case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
+                }
+            }
+
             //Possibly choose a random region and node for the user location - affects the top left text boxes
 
             //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
@@ -99,8 +177,8 @@ namespace ProjectWorking
             //[Some sort of random select of the civillian reports sets]
             //lbxReportsC.ItemsSource = [the set of civillian reports chosen]
 
-            Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
-            Random Regions0to3 = new Random(); //how to set limits on a random??
+            //Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
+            //Random Regions0to3 = new Random(); //how to set limits on a random??
 
 
             //This system only partially works as it requires the user to interact with 
@@ -207,7 +285,31 @@ namespace ProjectWorking
                 CanvasRegionC_Unloaded();
                 CanvasRegionA_Unloaded();
             }
+
+            //RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
+            //tbxRegionDisplayed.Text = SelectedRegion;
+            //alt way to do it
+
+
             MessageBox.Show($"{xPosition},{yPosition}");
+
+            //redraw
+            StartingCanvas.Children.Clear();
+            CanvasRegionA.Children.Clear();
+            CanvasRegionB.Children.Clear();
+            CanvasRegionC.Children.Clear();
+            CanvasRegionD.Children.Clear();
+
+            double[,] NodePositions = new double[,]
+            {
+                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 }
+            };
+            for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
+            {
+                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50);
+            }
+
+
         }
 
         private void Node_Click(object sender, RoutedEventArgs e) //dummy
