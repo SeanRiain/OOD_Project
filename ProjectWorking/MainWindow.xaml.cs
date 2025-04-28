@@ -329,9 +329,9 @@ namespace ProjectWorking
             //Get its name
             //Get its coordinates
 
-            //tbxDestinationRegion.Text = noderegion
-            //tbxDestinationName.Text = nodename
-            //tbxDestinationCoordinates.Text = nodecoordinates
+            tbxDestinationRegion.Text = SelectedRegion;
+            tbxDestinationName.Text = tbxSelectedAreaName.Text;
+            tbxDestinationCoordinates.Text = tbxSelectedCoordinates.Text;
         }
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
