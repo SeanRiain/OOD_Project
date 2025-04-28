@@ -424,42 +424,52 @@ namespace ProjectWorking
 
         public void StartingCanvas_Unloaded()
         {
-
+            StartingCanvas.Visibility = Visibility.Collapsed;
         }
         public void CanvasRegionA_Unloaded()
         {
+            CanvasRegionA.Visibility = Visibility.Collapsed;
 
         }
         public void CanvasRegionB_Unloaded()
         {
+            CanvasRegionB.Visibility = Visibility.Collapsed;
 
         }
         public void CanvasRegionC_Unloaded()
         {
-
+            CanvasRegionC.Visibility = Visibility.Collapsed;
         }
         public void CanvasRegionD_Unloaded()
         {
+            CanvasRegionD.Visibility = Visibility.Collapsed;
 
         }
+
+
         public void StartingCanvas_loaded()
         {
+            StartingCanvas.Visibility = Visibility.Visible;
 
         }
         public void CanvasRegionA_loaded()
         {
+            CanvasRegionA.Visibility = Visibility.Visible;
 
         }
         public void CanvasRegionB_loaded()
         {
+            CanvasRegionB.Visibility = Visibility.Visible;
 
         }
         public void CanvasRegionC_loaded()
         {
+            CanvasRegionC.Visibility = Visibility.Visible;
 
         }
         public void CanvasRegionD_loaded()
         {
+            CanvasRegionD.Visibility = Visibility.Visible;
 
         }
 
