@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,13 +147,15 @@ namespace ProjectWorking
             }
 
             // Generate alerts
-            GeneralAlertsSet1.Clear(); 
+            GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
-            string[] AlertTypes = new string[] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+            string[] AlertTypes = new string[] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
             GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", AlertTypes[AlertsGrng.Next(0, 4)], "Weather warning issued", DateTime.Now));
             lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
+
+            
 
             for (int counter = 0; counter < 4; counter++) 
             {
@@ -333,6 +336,60 @@ namespace ProjectWorking
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
         {
+            Random TeamNorng = new Random();
+
+            string Status = rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
+            string Coordindates = tbxCoordinatesReport.Text;
+            string Message = tbxReportMessage.Text;
+            int TeamNumber = TeamNorng.Next(100, 999);
+
+
+
+            var Report = new ResponderReports(Status, TeamNumber, DateTime.Now, Message); 
+            //[this] = to a responder report with its constructer's arguiments equal to the variables declared above
+            //which in turn are equal to the values passed into the text boxes in the main app
+            ResponderReports.Add(Report); //add that custom report to the list of reports
+            lbxReportsR.ItemsSource = ResponderReports; //display it in the text box
+
+            tbxSelectedNodeStatus.Text = Status;
+            tbxMessageDisplay.Text = Message;
+
+            //Update node color
+            foreach (var node in Nodes)
+            {
+                /* SingleNode.Ellipse.Fill = Status switch
+                {
+                    "In Need of Assistance" => Brushes.Red,
+                    "Situation Being Managed" => Brushes.Orange,
+                    "Situation De-Escalated" => Brushes.Green,
+                    "DANGER" => Brushes.Black,
+                }; */
+
+                if (Status == "In Need of Assistance")
+                {
+                    node.Ellipse.Fill = Brushes.Red;
+                }
+                if (Status == "Situation Being Managed")
+                {
+                    node.Ellipse.Fill = Brushes.Orange;
+                }
+                if (Status == "Situation De-Escalated")
+                {
+                    node.Ellipse.Fill = Brushes.Green;
+                }
+                if (Status == "DANGER")
+                {
+                    node.Ellipse.Fill = Brushes.Black;
+                }
+                else
+                {
+                    node.Ellipse.Fill = Brushes.White;
+                }
+                tbxSelectedAreaName.Text = node.Name;
+                tbxSelectedAreaName.Text = node.Coordinates;
+
+            }
+
             //Read which radio button was selected
             //Read the coordinates inputted
             //Read the custom message - if any
