@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,7 +23,7 @@ namespace ProjectWorking
     {
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
-        private List<Node> Nodes = new List<Node>();
+        private List<Node> Nodes = new List<Node>(); //List of the Node class
         
         //Random number generators
         public Random Regionrng = new Random();
@@ -35,17 +36,19 @@ namespace ProjectWorking
         Random TeamNorng = new Random();
 
 
-
+        //Can Lists be declared in the reports class?
         public List<CivillianReports> CivillianReportsSet1 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet2 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet3 = new List<CivillianReports>();
 
-        private List<ResponderReports> ResponderReports = new List<ResponderReports>(); //Does this need/can it have multiple sets
+        private List<ResponderReports> ResponderReports = new List<ResponderReports>(); //Does this need/can it have multiple sets?
 
+        //Can lists be declared in the Alerts class?
         private List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
         private List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
         private List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
  
+        //This is a list of lists, would it be better to have it formatted like above with "RegionBAlerts" as the individual lists?
         private List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] { new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
 
 
@@ -67,6 +70,8 @@ namespace ProjectWorking
             // Initialize CivillianReports sets
             //This is the proper syntax for adding a class object to a list of the same type
             //[List].add(new [class object type](however many properties it has));
+
+            //Can objects of type CivillianReports be added to declared lists of the same type in the reports class?
             CivillianReportsSet1.Add(new CivillianReports(449, new DateTime(2014, 10, 17), "Test Report 1"));
             CivillianReportsSet1.Add(new CivillianReports(450, new DateTime(2014, 10, 18), "Test Report 2"));
             CivillianReportsSet1.Add(new CivillianReports(451, new DateTime(2014, 10, 19), "Test Report 3"));
@@ -153,16 +158,17 @@ namespace ProjectWorking
             GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
-            string[] AlertTypes = NatureOfAlert //{ "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
+            string[] AlertTypes = NatureOfAlert; //{ "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
             GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", AlertTypes[AlertsGrng.Next(0, 4)], "Weather warning issued", DateTime.Now));
             lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
+            //continue this pattern if system is unchanged once its fixed
 
             
 
             for (int counter = 0; counter < 4; counter++) 
             {
-                RegionAlerts[counter].Clear();
+                RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
                 RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), AlertTypes[AlertsRrng.Next(0, 4)],$"Incident reported in Region {Regions[counter]}", DateTime.Now));
                 switch (counter)
                 {
@@ -185,15 +191,11 @@ namespace ProjectWorking
 
             //Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
             //Random Regions0to3 = new Random(); //how to set limits on a random??
-
-
-            //This system only partially works as it requires the user to interact with 
-            //the map before hitting the testing button
 #region CanvasSelect
-            if (SelectedRegion == null)
+           /* if (SelectedRegion == null)
             {
-                SelectedRegion == Regions[Regionrng.Next(0, 4)]; //there is definitely an easy solution to doing this
-            }
+                SelectedRegion == Regions[Regionrng.Next(0, 4)]; //there is definitely an easy solution to doing this.
+            } */
             if (SelectedRegion == Regions[0])
             {
                 DrawEllipse(10, 50, 50, 50); // x, y, width, height
@@ -226,6 +228,15 @@ namespace ProjectWorking
                 //I need to find a way to communicate with that using the coordinates text box in the report submission section.
             }
 
+            switch (Regions)
+            {
+                case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case 1: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case 2: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case 3: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                    //doesnt like either string or int cases
+            }
+
             #endregion
         }
 
@@ -245,7 +256,7 @@ namespace ProjectWorking
             //which gets it values from the GetPosition function applied to the dimensions of the map
             int yPosition = (int)position.Y;
 
-            if (xPosition < 75 && yPosition < 52)
+            if (xPosition < 75 && yPosition < 52) //If this can be done in a switch statement it should be.
             {
                 //rectRegion.image = regionA
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionA.png", UriKind.Relative));
@@ -394,7 +405,7 @@ namespace ProjectWorking
                     "DANGER" => Brushes.Black,
                 }; */
 
-                if (Status == "In Need of Assistance")
+                if (Status == "In Need of Assistance") //this replaced the switch above but if it could be refactored instead it should be
                 {
                     node.Ellipse.Fill = Brushes.Red;
                 }
@@ -448,9 +459,11 @@ namespace ProjectWorking
             Canvas.SetTop(ellipse, y);
 
             // Add ellipse to Canvas (on top of the image)
-            StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
-        }
+            //StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
 
+            
+        }
+        #region Canvas' Unloaded
         public void StartingCanvas_Unloaded()
         {
             StartingCanvas.Visibility = Visibility.Collapsed;
@@ -474,8 +487,9 @@ namespace ProjectWorking
             CanvasRegionD.Visibility = Visibility.Collapsed;
 
         }
+        #endregion
 
-
+        #region Canvas' Loaded
         public void StartingCanvas_loaded()
         {
             StartingCanvas.Visibility = Visibility.Visible;
@@ -501,6 +515,7 @@ namespace ProjectWorking
             CanvasRegionD.Visibility = Visibility.Visible;
 
         }
+        #endregion
 
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
 
