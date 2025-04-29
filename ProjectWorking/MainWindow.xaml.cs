@@ -23,6 +23,17 @@ namespace ProjectWorking
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
         private List<Node> Nodes = new List<Node>();
+        
+        //Random number generators
+        public Random Regionrng = new Random();
+        public Random Userrng = new Random();
+        Random Regionrng2 = new Random();
+        Random Userrng2 = new Random();
+        Random ReportsCrng = new Random();
+        Random AlertsGrng = new Random();
+        Random AlertsRrng = new Random();
+        Random TeamNorng = new Random();
+
 
 
         public List<CivillianReports> CivillianReportsSet1 = new List<CivillianReports>();
@@ -76,7 +87,6 @@ namespace ProjectWorking
             //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
 
             //random region on start
-            Random Regionrng = new Random();
             SelectedRegion = Regions[Regionrng.Next(0, Regions.Length)]; //goes through the regions array start to finish to select a region upon startup
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative)); //this works as the regions in the region array have the same name
             //as the images that are equvilant to them
@@ -84,7 +94,6 @@ namespace ProjectWorking
 
 
             //random user location on start
-            Random Userrng = new Random();
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
             tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
@@ -99,7 +108,6 @@ namespace ProjectWorking
         private void btnTesting_Click(object sender, RoutedEventArgs e)
         {
 
-            Random Regionrng2 = new Random();
             Nodes.Clear(); //Clear the list of currently recorded nodes
 
             //random region on click
@@ -108,17 +116,12 @@ namespace ProjectWorking
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
 
             //random user location on click
-            Random Userrng2 = new Random();
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
             tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; //change to correct x,y limits later
 
             // Randomly choose one of the CivillianReports sets
-            Random ReportsCrng = new Random();
-            Random AlertsGrng = new Random();
-            Random AlertsRrng = new Random();
-
-
+         
 
             //Adding one of the lists of civillian reports to the civillian reports list box
             var CReportSets = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 }; 
@@ -150,7 +153,7 @@ namespace ProjectWorking
             GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
-            string[] AlertTypes = new string[] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
+            string[] AlertTypes = NatureOfAlert //{ "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
             GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", AlertTypes[AlertsGrng.Next(0, 4)], "Weather warning issued", DateTime.Now));
             lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
@@ -189,7 +192,7 @@ namespace ProjectWorking
 #region CanvasSelect
             if (SelectedRegion == null)
             {
-                SelectedRegion == Regions[Regions0to3]; //there is definitely an easy solution to doing this
+                SelectedRegion == Regions[Regionrng.Next(0, 4)]; //there is definitely an easy solution to doing this
             }
             if (SelectedRegion == Regions[0])
             {
@@ -336,9 +339,35 @@ namespace ProjectWorking
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
         {
-            Random TeamNorng = new Random();
+            Button ActiveRadioButton = new Button();
 
-            string Status = rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
+            string Status; //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
+            //rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
+
+            switch (Status)
+            {
+                //case rbRed.IsChecked: rbRed = ActiveRadioButton; 
+                case "In Need of Assistance":
+                    rbRed = ActiveRadioButton;
+                    rbRed.IsChecked = true;
+                    break;
+
+                case "Situation Being Managed":
+                    rbOrange = ActiveRadioButton;
+                    rbOrange.IsChecked = true;
+                    break;
+
+                case "Situation De-Escalated":
+                    rbGreen = ActiveRadioButton;
+                    rbGreen.IsChecked = true;
+                    break;
+                    //Is this method better?
+                case "DANGER":
+                    rbBlack = ActiveRadioButton;
+                    rbBlack.IsChecked = true;
+                    break;
+            }
+
             string Coordindates = tbxCoordinatesReport.Text;
             string Message = tbxReportMessage.Text;
             int TeamNumber = TeamNorng.Next(100, 999);
