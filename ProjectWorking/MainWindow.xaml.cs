@@ -28,12 +28,14 @@ namespace ProjectWorking
         //Random number generators
         public Random Regionrng = new Random();
         public Random Userrng = new Random();
-        Random Regionrng2 = new Random();
-        Random Userrng2 = new Random();
-        Random ReportsCrng = new Random();
-        Random AlertsGrng = new Random();
-        Random AlertsRrng = new Random();
-        Random TeamNorng = new Random();
+        public Random Regionrng2 = new Random();
+        public Random Userrng2 = new Random();
+        public Random ReportsCrng = new Random();
+        public Random ReportsRrng = new Random();
+        public Random AlertsGrng = new Random();
+        public Random AlertsRrng = new Random();
+        public Random TeamNorng = new Random();
+        
 
 
         //Can Lists be declared in the reports class?
@@ -461,7 +463,42 @@ namespace ProjectWorking
             // Add ellipse to Canvas (on top of the image)
             //StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
 
-            
+            var ActiveCanvas = SelectedRegion switch
+            {
+                "RegionA" => CanvasRegionA,
+                "RegionB" => CanvasRegionB,
+                "RegionC" => CanvasRegionC,
+                "RegionD" => CanvasRegionD,
+                null => StartingCanvas
+            };
+            ActiveCanvas.Children.Add(ellipse);
+
+            var SingleNode = new Node
+            {
+                Region = SelectedRegion,
+                Name = $"Node_{Nodes.Count + 1}", //This is mostly fine, it would be good if they had custom string names e.g. "Sea Street" but this works
+                Coordinates = $"{x},{y}", //Im worried about if these are correctly communicating with the actual values
+                Ellipse = ellipse
+            };
+            Nodes.Add(SingleNode);
+
+            ellipse.MouseLeftButtonDown += (s, e) => //????????
+            {
+                tbxSelectedAreaName.Text = SingleNode.Name;
+                tbxSelectedCoordinates.Text = SingleNode.Coordinates;
+                tbxSelectedNodeStatus.Text = "";
+                tbxMessageDisplay.Text = "";
+
+                var CivillianReport = new CivillianReports(ReportsCrng.Next(100, 999), DateTime.Now, $"Report for {SingleNode.Name}");
+                CivillianReportsSet1.Add(CivillianReport);
+                lbxReportsC.ItemsSource = null;
+                lbxReportsC.ItemsSource = CivillianReportsSet1;
+
+                var ResponderReport = new ResponderReports("", ReportsRrng.Next(1, 10), DateTime.Now, $"Report for {SingleNode.Name}");
+                ResponderReports.Add(ResponderReport);
+                lbxReportsR.ItemsSource = null;
+                lbxReportsR.ItemsSource = ResponderReports;
+            };
         }
         #region Canvas' Unloaded
         public void StartingCanvas_Unloaded()
