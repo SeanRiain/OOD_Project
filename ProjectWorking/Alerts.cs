@@ -15,9 +15,10 @@ namespace ProjectWorking
         public string GeneralAlertMessage { get; set; }
         public DateTime TimeSent { get; set; }
 
-        public GeneralAlerts(string TargetRecipientsCon, string GeneralAlertMessageCon, DateTime TimeSentCon)
+        public GeneralAlerts(string TargetRecipientsCon, string[] NatureOfAlertCon, string GeneralAlertMessageCon, DateTime TimeSentCon)
         {
             TargetRecipients = TargetRecipientsCon;
+            NatureOfAlertCon = NatureOfAlert;
             GeneralAlertMessage = GeneralAlertMessageCon;
             TimeSent = TimeSentCon;
         }

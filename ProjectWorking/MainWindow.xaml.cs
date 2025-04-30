@@ -85,7 +85,6 @@ namespace ProjectWorking
             CivillianReportsSet3.Add(new CivillianReports(455, new DateTime(2015, 12, 20), "Test Report 7"));
             CivillianReportsSet3.Add(new CivillianReports(456, new DateTime(2015, 12, 21), "Test Report 8"));
             CivillianReportsSet3.Add(new CivillianReports(457, new DateTime(2015, 12, 22), "Test Report 9"));
-
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
@@ -149,11 +148,11 @@ namespace ProjectWorking
 
             double[,] NodePositions = new double[,]
             {
-                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 }
+                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //not sure how this works
             };
             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             {
-                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50);
+                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //this line NEEDS to be refactored or at least re-explained
             }
 
             // Generate alerts
@@ -171,8 +170,11 @@ namespace ProjectWorking
             for (int counter = 0; counter < 4; counter++) 
             {
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
-                RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), AlertTypes[AlertsRrng.Next(0, 4)],$"Incident reported in Region {Regions[counter]}", DateTime.Now));
-                switch (counter)
+
+                RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), 
+                AlertTypes[AlertsRrng.Next(0, 4)],$"Incident reported in Region {Regions[counter]}", DateTime.Now)); //This line NEEDS refactoring
+
+                switch (counter) //as the counter runs through 0-3 each case gets triggered
                 {
                     case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break;
                     case 1: lbxRegionAlerts2.ItemsSource = RegionAlerts[counter]; break;
@@ -233,10 +235,10 @@ namespace ProjectWorking
             switch (Regions)
             {
                 case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case 1: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case Regions[0]: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
                 case 2: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
                 case 3: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                    //doesnt like either string or int cases
+                    //doesnt like either string, int or string[] cases
             }
 
             #endregion
@@ -357,7 +359,7 @@ namespace ProjectWorking
             string Status; //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
             //rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
 
-            switch (Status)
+            switch (Status) //The exact process of what needs to be detected and displayed as a result of that detection needs to be figured out here as both attempts are messy
             {
                 //case rbRed.IsChecked: rbRed = ActiveRadioButton; 
                 case "In Need of Assistance":
