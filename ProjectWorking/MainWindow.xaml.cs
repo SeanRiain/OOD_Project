@@ -23,6 +23,10 @@ namespace ProjectWorking
     {
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
+
+        public string[] RegionAlertTypes = new string[7] 
+        {"Electricity Grid Damage", "Water Supply Issues", "No Phone Signal", "Roads Blocked", "Flooding Damage", "Major Earthquake Damage", "Unrest/Active Riot"};
+
         private List<Node> Nodes = new List<Node>(); //List of the Node class
         
         //Random number generators
@@ -134,10 +138,6 @@ namespace ProjectWorking
             //a var is similar to a list without a name
             lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)];
 
-            //Adding one of the lists of general alerts to the general alerts list box
-
-            var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
-            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
 
             //Clear and draw nodes
             StartingCanvas.Children.Clear(); //Again possibly irrelevent now
@@ -159,24 +159,33 @@ namespace ProjectWorking
             GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
-            string[] AlertTypes = NatureOfAlert; //{ "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
+
+            string[] AlertTypes = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
+
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", AlertTypes[AlertsGrng.Next(0, 4)], "Weather warning issued", DateTime.Now));
-            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
+            GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", $"AlertTypes[AlertsGrng.Next(0, 4)]", "Weather warning issued", DateTime.Now));
+            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1; //this can be rand
             //continue this pattern if system is unchanged once its fixed
 
-            
+
+            //Adding one of the lists of general alerts to the general alerts list box
+
+            var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
+            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
+
+            //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
+            //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
 
             for (int counter = 0; counter < 4; counter++) 
             {
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
 
                 RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), 
-                AlertTypes[AlertsRrng.Next(0, 4)],$"Incident reported in Region {Regions[counter]}", DateTime.Now)); //This line NEEDS refactoring
+                AlertTypes[AlertsRrng.Next(0, 4)],$"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //Main problem is the first bit
 
                 switch (counter) //as the counter runs through 0-3 each case gets triggered
                 {
-                    case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break;
+                    case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break; //does the second part of this work? I cant figure out the logic of it
                     case 1: lbxRegionAlerts2.ItemsSource = RegionAlerts[counter]; break;
                     case 2: lbxRegionAlerts3.ItemsSource = RegionAlerts[counter]; break;
                     case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
@@ -323,22 +332,22 @@ namespace ProjectWorking
 
             double[,] NodePositions = new double[,]
             {
-                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 }
+                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions, but what are their basis?
             };
             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             {
-                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50);
+                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //Reassess this logic here
             }
 
 
         }
 
-        private void Node_Click(object sender, RoutedEventArgs e) //dummy
+        /*private void Node_Click(object sender, RoutedEventArgs e) //dummy
         {
             //Generate - OR load already established - class objects of both type Responder and type Civillian
             //Populate their respective list boxes with these objects - can they be saved or must they be randomly generated every time?
             //The three text boxes ***UNDER*** the left image should be affected by this click
-        }
+        } */
 
         private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e)
         {
