@@ -31,8 +31,8 @@ namespace ProjectWorking
         
         //Random number generators
         public Random Regionrng = new Random();
-        public Random Userrng = new Random();
         public Random Regionrng2 = new Random();
+        public Random Userrng = new Random();
         public Random Userrng2 = new Random();
         public Random ReportsCrng = new Random();
         public Random ReportsRrng = new Random();
@@ -89,6 +89,8 @@ namespace ProjectWorking
             CivillianReportsSet3.Add(new CivillianReports(455, new DateTime(2015, 12, 20), "Test Report 7"));
             CivillianReportsSet3.Add(new CivillianReports(456, new DateTime(2015, 12, 21), "Test Report 8"));
             CivillianReportsSet3.Add(new CivillianReports(457, new DateTime(2015, 12, 22), "Test Report 9"));
+
+            //GeneralAlertsSet1.Add(new GeneralAlerts("Teams in Transit", "Keep Viligant", "Test Alert 1", new DateTime(2014, 10, 17)));
         }
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
@@ -107,6 +109,8 @@ namespace ProjectWorking
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
             tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
+            //user coordinates dont change so this can be static
+            //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
 
             StartingCanvas_loaded(); //incorrect now that theres a random starting region? Maybe I should duplicate the region if statements up here?          
             CanvasRegionA_Unloaded();
@@ -136,8 +140,8 @@ namespace ProjectWorking
             //Adding one of the lists of civillian reports to the civillian reports list box
             var CReportSets = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 }; 
             //a var is similar to a list without a name
-            lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)];
-
+            lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)]; 
+            //"the source of content for this box is the version of this var that is affected by a random number from this list of numbers that is equivilant to several list objects"
 
             //Clear and draw nodes
             StartingCanvas.Children.Clear(); //Again possibly irrelevent now
@@ -164,14 +168,14 @@ namespace ProjectWorking
 
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
             GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", $"AlertTypes[AlertsGrng.Next(0, 4)]", "Weather warning issued", DateTime.Now));
-            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1; //this can be rand
+            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
             //continue this pattern if system is unchanged once its fixed
 
 
             //Adding one of the lists of general alerts to the general alerts list box
-
             var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
-            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
+            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)]; 
+            //note that this is the same process as with choosing a random civillian reports set
 
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
             //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
@@ -181,7 +185,7 @@ namespace ProjectWorking
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
 
                 RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), 
-                AlertTypes[AlertsRrng.Next(0, 4)],$"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //Main problem is the first bit
+                AlertTypes[AlertsRrng.Next(0, 4)],$"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //This should be targeted as a core "rewrite area"
 
                 switch (counter) //as the counter runs through 0-3 each case gets triggered
                 {
@@ -253,7 +257,7 @@ namespace ProjectWorking
             #endregion
         }
 
-        public void mdClickMap(object sender, MouseButtonEventArgs MousePointer)
+        public void mdClickMap(object sender, MouseButtonEventArgs MousePointer) //no errors but section at bottom should be reworked
         {
             //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
             //string SelectedRegion;
@@ -330,7 +334,7 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
-            double[,] NodePositions = new double[,]
+            double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
             {
                 { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions, but what are their basis?
             };
@@ -349,23 +353,23 @@ namespace ProjectWorking
             //The three text boxes ***UNDER*** the left image should be affected by this click
         } */
 
-        private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e)
+        private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e) //This should be fine
         {
             //Get the node that is currently selected and read its information
             //Get the id of the region the node is in
             //Get its name
             //Get its coordinates
 
-            tbxDestinationRegion.Text = SelectedRegion;
-            tbxDestinationName.Text = tbxSelectedAreaName.Text;
+            tbxDestinationRegion.Text = SelectedRegion; //The text of this box is equal to the currently established "SelectedRegion" at the time the button is pressed.
+            tbxDestinationName.Text = tbxSelectedAreaName.Text; 
             tbxDestinationCoordinates.Text = tbxSelectedCoordinates.Text;
         }
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
         {
-            Button ActiveRadioButton = new Button();
+            Button ActiveRadioButton = new Button(); 
 
-            string Status; //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
+            string Status = ; //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
             //rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
 
             switch (Status) //The exact process of what needs to be detected and displayed as a result of that detection needs to be figured out here as both attempts are messy
@@ -373,6 +377,8 @@ namespace ProjectWorking
                 //case rbRed.IsChecked: rbRed = ActiveRadioButton; 
                 case "In Need of Assistance":
                     rbRed = ActiveRadioButton;
+                    //ActiveRadioButton = rbRed;
+
                     rbRed.IsChecked = true;
                     break;
 
@@ -390,6 +396,13 @@ namespace ProjectWorking
                     rbBlack = ActiveRadioButton;
                     rbBlack.IsChecked = true;
                     break;
+            }
+
+            if (Status == "In Need of Assistance")
+            {
+                rbRed = ActiveRadioButton;
+                //ActiveRadioButton = rbRed;
+                rbRed.IsChecked = true;
             }
 
             string Coordindates = tbxCoordinatesReport.Text;
@@ -438,7 +451,7 @@ namespace ProjectWorking
                 {
                     node.Ellipse.Fill = Brushes.White;
                 }
-                tbxSelectedAreaName.Text = node.Name;
+                tbxSelectedAreaName.Text = node.Name; //
                 tbxSelectedAreaName.Text = node.Coordinates;
 
             }
@@ -456,7 +469,7 @@ namespace ProjectWorking
         }
 
 
-        private void DrawEllipse(double x, double y, double width, double height)
+        private void DrawEllipse(double x, double y, double width, double height) //This should be targeted as a core "rewrite area"
         {
             Ellipse ellipse = new Ellipse
             {
