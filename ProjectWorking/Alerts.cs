@@ -10,12 +10,14 @@ namespace ProjectWorking
     {
         public string TargetRecipients { get; set; }
 
-        public string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+        //public string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+
+        public string NatureOfAlert { get; set; }
 
         public string GeneralAlertMessage { get; set; }
         public DateTime TimeSent { get; set; }
 
-        public GeneralAlerts(string TargetRecipientsCon, string[] NatureOfAlertCon, string GeneralAlertMessageCon, DateTime TimeSentCon)
+        public GeneralAlerts(string TargetRecipientsCon, string NatureOfAlertCon, string GeneralAlertMessageCon, DateTime TimeSentCon)
         {
             TargetRecipients = TargetRecipientsCon;
             NatureOfAlert = NatureOfAlertCon;
@@ -30,11 +32,11 @@ namespace ProjectWorking
 
     public class RegionAlerts
     {
-        string[] Regions = new string[4] { "A", "B", "C", "D" } ;
+        //string[] Regions = new string[4] { "A", "B", "C", "D" } ;
 
         string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
 
-        //public string Region { get; set; }
+        public string Region { get; set; }
         //public string NatureOfAlert { get; set; }
 
         string RegionAlertMessage { get; set; }

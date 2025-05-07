@@ -24,11 +24,11 @@ namespace ProjectWorking
         public string SelectedRegion;
         public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
 
-        public string[] RegionAlertTypes = new string[7] 
+        public string[] RegionAlertTypes = new string[7]
         {"Electricity Grid Damage", "Water Supply Issues", "No Phone Signal", "Roads Blocked", "Flooding Damage", "Major Earthquake Damage", "Unrest/Active Riot"};
 
         private List<Node> Nodes = new List<Node>(); //List of the Node class
-        
+
         //Random number generators
         public Random Regionrng = new Random();
         public Random Regionrng2 = new Random();
@@ -39,7 +39,7 @@ namespace ProjectWorking
         public Random AlertsGrng = new Random();
         public Random AlertsRrng = new Random();
         public Random TeamNorng = new Random();
-        
+
 
 
         //Can Lists be declared in the reports class?
@@ -53,7 +53,7 @@ namespace ProjectWorking
         private List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
         private List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
         private List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
- 
+
         //This is a list of lists, would it be better to have it formatted like above with "RegionBAlerts" as the individual lists?
         private List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] { new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
 
@@ -109,16 +109,19 @@ namespace ProjectWorking
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
             tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
-            //user coordinates dont change so this can be static
-            //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
+                                                                                        //user coordinates dont change so this can be static
+                                                                                        //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
 
-            StartingCanvas_loaded(); //incorrect now that theres a random starting region? Maybe I should duplicate the region if statements up here?          
+            //StartingCanvas_loaded(); //incorrect now that theres a random starting region? Maybe I should duplicate the region if statements up here?          
             CanvasRegionA_Unloaded();
             CanvasRegionB_Unloaded();
             CanvasRegionC_Unloaded();
             CanvasRegionD_Unloaded();
+
+            RegionSelect();
         }
 
+        //Method to clear everything on screen and simulates the scenario process
         private void btnTesting_Click(object sender, RoutedEventArgs e)
         {
 
@@ -129,19 +132,25 @@ namespace ProjectWorking
             tbxRegionDisplayed.Text = SelectedRegion; //Exact same process as above
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
 
+
+
             //random user location on click
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = "Node1"; //can this be randomized?
             tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; //change to correct x,y limits later
 
-            // Randomly choose one of the CivillianReports sets
-         
 
+
+
+            // Randomly choose one of the CivillianReports sets
             //Adding one of the lists of civillian reports to the civillian reports list box
-            var CReportSets = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 }; 
+            var CReportSets = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 };
+            lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)];
             //a var is similar to a list without a name
-            lbxReportsC.ItemsSource = CReportSets[ReportsCrng.Next(CReportSets.Count)]; 
             //"the source of content for this box is the version of this var that is affected by a random number from this list of numbers that is equivilant to several list objects"
+
+
+
 
             //Clear and draw nodes
             StartingCanvas.Children.Clear(); //Again possibly irrelevent now
@@ -150,51 +159,60 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
-            double[,] NodePositions = new double[,]
-            {
-                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //not sure how this works
-            };
-            for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
-            {
-                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //this line NEEDS to be refactored or at least re-explained
-            }
+            //hard code positions for drawing elipse - irrelevant due to regionselect()
+            //double[,] NodePositions = new double[,]
+            //{
+            //    { 10, 50 }, 
+            //    { 50, 100 }, 
+            //    { 100, 150 }, 
+            //    { 150, 200 } //not sure how this works
+            //};
+            //for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
+            //{
+            //    DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //this line NEEDS to be refactored or at least re-explained
+            //}
 
             // Generate alerts
             GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
 
+
+            //Stretch goal is to randomize the message recipient and the custom message - use arrays
             string[] AlertTypes = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
 
             GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", $"AlertTypes[AlertsGrng.Next(0, 4)]", "Weather warning issued", DateTime.Now));
+            //alt way to do it: GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", $"AlertTypes[AlertsGrng.Next(0, 4)]", "Weather warning issued", DateTime.Now));
             lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
-            //continue this pattern if system is unchanged once its fixed
+            //continue this pattern if system is unchanged once its fixed: URGENT
+
+            //logic is, add stuff to all 3 lists, use a random list
 
 
             //Adding one of the lists of general alerts to the general alerts list box
             var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
-            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)]; 
+            lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
             //note that this is the same process as with choosing a random civillian reports set
+
+
+
+
 
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
             //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
 
-            for (int counter = 0; counter < 4; counter++) 
+
+
+            for (int counter = 0; counter < 4; counter++)
             {
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
+                RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""),
+                AlertTypes[AlertsRrng.Next(0, 4)], $"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //This should be targeted as a core "rewrite area"
 
-                RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""), 
-                AlertTypes[AlertsRrng.Next(0, 4)],$"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //This should be targeted as a core "rewrite area"
-
-                switch (counter) //as the counter runs through 0-3 each case gets triggered
-                {
-                    case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break; //does the second part of this work? I cant figure out the logic of it
-                    case 1: lbxRegionAlerts2.ItemsSource = RegionAlerts[counter]; break;
-                    case 2: lbxRegionAlerts3.ItemsSource = RegionAlerts[counter]; break;
-                    case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
-                }
             }
+
+
+
 
             //Possibly choose a random region and node for the user location - affects the top left text boxes
 
@@ -208,53 +226,62 @@ namespace ProjectWorking
 
             //Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
             //Random Regions0to3 = new Random(); //how to set limits on a random??
-#region CanvasSelect
-           /* if (SelectedRegion == null)
-            {
-                SelectedRegion == Regions[Regionrng.Next(0, 4)]; //there is definitely an easy solution to doing this.
-            } */
-            if (SelectedRegion == Regions[0])
-            {
-                DrawEllipse(10, 50, 50, 50); // x, y, width, height
-                DrawEllipse(50, 100, 50, 50);
-                DrawEllipse(100, 150, 50, 50); 
-                DrawEllipse(150, 200, 50, 50);
-            }
-            if (SelectedRegion == Regions[1])
-            {
-                DrawEllipse(10, 50, 50, 50); // x, y, width, height
-                DrawEllipse(50, 100, 50, 50);
-                DrawEllipse(100, 150, 50, 50);
-                DrawEllipse(150, 200, 50, 50);
-            }
-            if (SelectedRegion == Regions[2])
-            {
-                DrawEllipse(10, 50, 50, 50); // x, y, width, height
-                DrawEllipse(50, 100, 50, 50);
-                DrawEllipse(100, 150, 50, 50);
-                DrawEllipse(150, 200, 50, 50);
-            }
-            if (SelectedRegion == Regions[3])
-            {
-                DrawEllipse(10, 50, 50, 50); // x, y, width, height
-                DrawEllipse(50, 100, 50, 50);
-                DrawEllipse(100, 150, 50, 50);
-                DrawEllipse(150, 200, 50, 50);
 
-                //Each node (each line) has a x,y position.
-                //I need to find a way to communicate with that using the coordinates text box in the report submission section.
-            }
+            #region RegionSelect Original Version
+            ///* if (SelectedRegion == null)
+            // {
+            //     SelectedRegion == Regions[Regionrng.Next(0, 4)]; //there is definitely an easy solution to doing this.
+            // } */
+            //if (SelectedRegion == Regions[0])
+            //{
+            //    DrawEllipse(10, 50, 50, 50); // x, y, width, height
+            //    DrawEllipse(50, 100, 50, 50);
+            //    DrawEllipse(100, 150, 50, 50);
+            //    DrawEllipse(150, 200, 50, 50);
+            //}
+            //if (SelectedRegion == Regions[1])
+            //{
+            //    DrawEllipse(10, 50, 50, 50); // x, y, width, height
+            //    DrawEllipse(50, 100, 50, 50);
+            //    DrawEllipse(100, 150, 50, 50);
+            //    DrawEllipse(150, 200, 50, 50);
+            //}
 
-            switch (Regions)
-            {
-                case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case Regions[0]: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case 2: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case 3: DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                    //doesnt like either string, int or string[] cases
-            }
+            ////make a method of this and use it twice
+            //if (SelectedRegion == Regions[2])
+            //{
+            //    DrawEllipse(10, 50, 50, 50); // x, y, width, height
+            //    DrawEllipse(50, 100, 50, 50);
+            //    DrawEllipse(100, 150, 50, 50);
+            //    DrawEllipse(150, 200, 50, 50);
+            //}
+            //if (SelectedRegion == Regions[3])
+            //{
+            //    DrawEllipse(10, 50, 50, 50); // x, y, width, height
+            //    DrawEllipse(50, 100, 50, 50);
+            //    DrawEllipse(100, 150, 50, 50);
+            //    DrawEllipse(150, 200, 50, 50);
+
+            //    //Each node (each line) has a x,y position.
+            //    //I need to find a way to communicate with that using the coordinates text box in the report submission section.
+            //}
+
+
 
             #endregion
+
+            RegionSelect();
+        }
+
+        private void RegionSelect()
+        {
+            switch (SelectedRegion)
+            {
+                case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case "RegionB": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case "RegionC": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case "RegionD": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+            }
         }
 
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer) //no errors but section at bottom should be reworked
@@ -262,7 +289,7 @@ namespace ProjectWorking
             //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
             //string SelectedRegion;
 
-            StartingCanvas_Unloaded(); 
+            StartingCanvas_Unloaded();
             //Unload the canvas with the starting content when any region is clicked
 
             var map = sender as Image; //"Map" is equal to the image property of the code line that this method/event is associated with
@@ -361,63 +388,66 @@ namespace ProjectWorking
             //Get its coordinates
 
             tbxDestinationRegion.Text = SelectedRegion; //The text of this box is equal to the currently established "SelectedRegion" at the time the button is pressed.
-            tbxDestinationName.Text = tbxSelectedAreaName.Text; 
+            tbxDestinationName.Text = tbxSelectedAreaName.Text;
             tbxDestinationCoordinates.Text = tbxSelectedCoordinates.Text;
         }
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
         {
-            Button ActiveRadioButton = new Button(); 
+            string status = ""; //continue this pattern: URGENT
+            if (rbRed.IsChecked == true)
+            {
+                status = rbRed.Content.ToString();
+            }
+            //else if (rb)
 
-            string Status = ; //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
+            //string Status = ActiveRadioButton.Content.ToString(); //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
             //rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
 
-            switch (Status) //The exact process of what needs to be detected and displayed as a result of that detection needs to be figured out here as both attempts are messy
-            {
-                //case rbRed.IsChecked: rbRed = ActiveRadioButton; 
-                case "In Need of Assistance":
-                    rbRed = ActiveRadioButton;
-                    //ActiveRadioButton = rbRed;
+            //switch (Status) //The exact process of what needs to be detected and displayed as a result of that detection needs to be figured out here as both attempts are messy
+            //{
+            //    //case rbRed.IsChecked: rbRed = ActiveRadioButton; 
+            //    case "- In Need of Assistance":
+            //        rbRed = ActiveRadioButton;
+            //        //ActiveRadioButton = rbRed;
 
-                    rbRed.IsChecked = true;
-                    break;
+            //        rbRed.IsChecked = true;
+            //        break;
 
-                case "Situation Being Managed":
-                    rbOrange = ActiveRadioButton;
-                    rbOrange.IsChecked = true;
-                    break;
+            //    case "Situation Being Managed":
+            //        rbOrange = ActiveRadioButton;
+            //        rbOrange.IsChecked = true;
+            //        break;
 
-                case "Situation De-Escalated":
-                    rbGreen = ActiveRadioButton;
-                    rbGreen.IsChecked = true;
-                    break;
-                    //Is this method better?
-                case "DANGER":
-                    rbBlack = ActiveRadioButton;
-                    rbBlack.IsChecked = true;
-                    break;
-            }
+            //    case "Situation De-Escalated":
+            //        rbGreen = ActiveRadioButton;
+            //        rbGreen.IsChecked = true;
+            //        break;
+            //    //Is this method better?
+            //    case "DANGER":
+            //        rbBlack = ActiveRadioButton;
+            //        rbBlack.IsChecked = true;
+            //        break;
+            //}
 
-            if (Status == "In Need of Assistance")
-            {
-                rbRed = ActiveRadioButton;
-                //ActiveRadioButton = rbRed;
-                rbRed.IsChecked = true;
-            }
 
-            string Coordindates = tbxCoordinatesReport.Text;
-            string Message = tbxReportMessage.Text;
             int TeamNumber = TeamNorng.Next(100, 999);
+            string Coordindates = tbxCoordinatesReport.Text;
+
+            //Maybe I could somehow create a list of all real coordinates, either taken from active nodes or declared first and assigned to them
+            //then check whats inputted here against that list for validation??
+
+            string Message = tbxReportMessage.Text;
 
 
 
-            var Report = new ResponderReports(Status, TeamNumber, DateTime.Now, Message); 
+            var Report = new ResponderReports(status, TeamNumber, DateTime.Now, Message);
             //[this] = to a responder report with its constructer's arguiments equal to the variables declared above
             //which in turn are equal to the values passed into the text boxes in the main app
             ResponderReports.Add(Report); //add that custom report to the list of reports
             lbxReportsR.ItemsSource = ResponderReports; //display it in the text box
 
-            tbxSelectedNodeStatus.Text = Status;
+            tbxSelectedNodeStatus.Text = status;
             tbxMessageDisplay.Text = Message;
 
             //Update node color
@@ -431,19 +461,19 @@ namespace ProjectWorking
                     "DANGER" => Brushes.Black,
                 }; */
 
-                if (Status == "In Need of Assistance") //this replaced the switch above but if it could be refactored instead it should be
+                if (status == "In Need of Assistance") //this replaced the switch above but if it could be refactored instead it should be
                 {
                     node.Ellipse.Fill = Brushes.Red;
                 }
-                if (Status == "Situation Being Managed")
+                if (status == "Situation Being Managed")
                 {
                     node.Ellipse.Fill = Brushes.Orange;
                 }
-                if (Status == "Situation De-Escalated")
+                if (status == "Situation De-Escalated")
                 {
                     node.Ellipse.Fill = Brushes.Green;
                 }
-                if (Status == "DANGER")
+                if (status == "DANGER")
                 {
                     node.Ellipse.Fill = Brushes.Black;
                 }
@@ -487,14 +517,23 @@ namespace ProjectWorking
             // Add ellipse to Canvas (on top of the image)
             //StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
 
-            var ActiveCanvas = SelectedRegion switch
-            {
-                "RegionA" => CanvasRegionA,
-                "RegionB" => CanvasRegionB,
-                "RegionC" => CanvasRegionC,
-                "RegionD" => CanvasRegionD,
-                null => StartingCanvas
-            };
+            Canvas ActiveCanvas;
+
+            string region = SelectedRegion;
+
+            if (region == "RegionA")
+                ActiveCanvas = CanvasRegionA;
+            else if (region == "RegionB")
+                ActiveCanvas = CanvasRegionB;
+            else if (region == "RegionC")
+                ActiveCanvas = CanvasRegionC;
+            else if (region == "RegionD")
+                ActiveCanvas = CanvasRegionD;
+            else
+                ActiveCanvas = StartingCanvas;
+
+
+
             ActiveCanvas.Children.Add(ellipse);
 
             var SingleNode = new Node
