@@ -224,7 +224,7 @@ namespace ProjectWorking
             tbxRegionDisplayed.Text = SelectedRegion; //Exact same process as above
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
 
-            int currentlocationselect = 0;
+            //int currentlocationselect = 0; Perhaps attempt to use a matching to pair the user node with the coordinates?
 
             //random user location on click
             tbxCurrentRegion.Text = SelectedRegion;
@@ -273,21 +273,17 @@ namespace ProjectWorking
             //Stretch goal is to randomize the message recipient and the custom message - use arrays
              //restated as I couldnt use the one from the external class
 
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
 
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
 
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            //continue this pattern if system is unchanged once its fixed: URGENT
-
-            //logic is, add stuff to all 3 lists, use a random list
-
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
 
             //Adding one of the lists of general alerts to the general alerts list box
             var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
