@@ -22,10 +22,43 @@ namespace ProjectWorking
     public partial class MainWindow : Window
     {
         public string SelectedRegion;
-        public string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
-
+        public string[] Regions = new string[4] {"RegionA", "RegionB", "RegionC", "RegionD"};
+        string[] AlertTypes = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+        string[] TeamOptions = new string[7]
+        {
+            "Teams In Transit", "All Teams", "Teams in Large Convoys", "Isolated Teams","Rescue Teams", "Teams With Firefighting Support", "Aid Teams"
+        };
+        public string[] BlockNames = new string[12] 
+        {
+         "Akhmedov Street", "Aliev Street", "Adiyev Street", "Turishcheva Street", "Arsamakov Street", "Troshev Street", "Agayev Street",
+         "Sarkisov Street", "Karatsuba Street", "Bakaev Street", "Yefimova Street", "Ozdoyev Street"
+        };
         public string[] RegionAlertTypes = new string[7]
         {"Electricity Grid Damage", "Water Supply Issues", "No Phone Signal", "Roads Blocked", "Flooding Damage", "Major Earthquake Damage", "Unrest/Active Riot"};
+
+        string[] PossibleMessages = new string[12] 
+        {
+            "Poor connection will result in inconsistent general and regional alerts for the time being, all teams will be updated once/if connection becomes reliable.",
+            "Connection issues resolved, all updates should be recieved on either end at once until something changes.",
+
+            "As per negotiations, it is safe for all teams to approach DESIGNATED combatants until further notice.", 
+            "Due to diplomatic failures, it is presently considered a risk for any team to approach any combatant. If approached or fired upon retreat immediately.",
+
+            "Widespread electricty blackouts are being reported by emergency workers and civillians, excercise caution and utilize low light equipment if working into the night.", 
+            "Issues with the main power grid have been resolved, blackouts should not be occuring outside of isolated incidents - report any electricty grid issues encountered.",
+
+            "Firefighting support currently available for any team that requires it.",
+            "Firefighting support currently unavailable - a reminder to NOT attempt to intervene in significant fire related emergencies unless specifically trained.",
+
+            "Armed escort currently available for any team that requires it.",
+            "Armed escort support currently unavailable - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone.",
+
+            "All quakes are predicted to have stopped, anything felt from this point on should only be a tremor and its considered relatively safe to operate.",
+            "Armed escort support currently unavailable - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone."
+        };
+
+
+        public Canvas ActiveCanvas;
 
         private List<Node> Nodes = new List<Node>(); //List of the Node class
 
@@ -39,6 +72,10 @@ namespace ProjectWorking
         public Random AlertsGrng = new Random();
         public Random AlertsRrng = new Random();
         public Random TeamNorng = new Random();
+        public Random TeamTyperng = new Random();
+        public Random UserLocationrng = new Random();
+        public Random Messagerng = new Random();
+        public Random SSNrng = new Random();
 
 
 
@@ -50,13 +87,12 @@ namespace ProjectWorking
         private List<ResponderReports> ResponderReports = new List<ResponderReports>(); //Does this need/can it have multiple sets?
 
         //Can lists be declared in the Alerts class?
-        private List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
-        private List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
-        private List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
+        public List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
+        public List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
+        public List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
 
         //This is a list of lists, would it be better to have it formatted like above with "RegionBAlerts" as the individual lists?
-        private List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] { new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
-
+        public List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] {new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
 
         //CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
         //CivillianReports Set1Report2 = new CivillianReports(449, (2014, 11, 17), "test");
@@ -69,6 +105,8 @@ namespace ProjectWorking
         //I am also unsure if these report instances should be created here or in the btnTesting_click method.
 
 
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -78,25 +116,37 @@ namespace ProjectWorking
             //[List].add(new [class object type](however many properties it has));
 
             //Can objects of type CivillianReports be added to declared lists of the same type in the reports class?
-            CivillianReportsSet1.Add(new CivillianReports(449, new DateTime(2014, 10, 17), "Test Report 1"));
-            CivillianReportsSet1.Add(new CivillianReports(450, new DateTime(2014, 10, 18), "Test Report 2"));
-            CivillianReportsSet1.Add(new CivillianReports(451, new DateTime(2014, 10, 19), "Test Report 3"));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 17), "Test Report 1"));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 18), "Test Report 2"));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 19), "Test Report 3"));
 
-            CivillianReportsSet2.Add(new CivillianReports(452, new DateTime(2014, 11, 10), "Test Report 4"));
-            CivillianReportsSet2.Add(new CivillianReports(453, new DateTime(2014, 11, 11), "Test Report 5"));
-            CivillianReportsSet2.Add(new CivillianReports(454, new DateTime(2014, 11, 12), "Test Report 6"));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 10), "Test Report 4"));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 11), "Test Report 5"));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 12), "Test Report 6"));
 
-            CivillianReportsSet3.Add(new CivillianReports(455, new DateTime(2015, 12, 20), "Test Report 7"));
-            CivillianReportsSet3.Add(new CivillianReports(456, new DateTime(2015, 12, 21), "Test Report 8"));
-            CivillianReportsSet3.Add(new CivillianReports(457, new DateTime(2015, 12, 22), "Test Report 9"));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 20), "Test Report 7"));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 21), "Test Report 8"));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 22), "Test Report 9"));
 
-            //GeneralAlertsSet1.Add(new GeneralAlerts("Teams in Transit", "Keep Viligant", "Test Alert 1", new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
         }
+
+
+
+
 
         private void TheWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //Find/think of some way to deal with the user location, how could it be moved? Should it be deleted entirely? Randomly generated on start?
-            //In any case, all it should affect is the three top left text boxes unless it can be changed in some way.
 
             //random region on start
             SelectedRegion = Regions[Regionrng.Next(0, Regions.Length)]; //goes through the regions array start to finish to select a region upon startup
@@ -107,19 +157,61 @@ namespace ProjectWorking
 
             //random user location on start
             tbxCurrentRegion.Text = SelectedRegion;
-            tbxNearestUserNode.Text = "Node1"; //can this be randomized?
-            tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
+            tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)]; //can this be randomized?
+            tbxUserCoordinates.Text = $"{Userrng.Next(150, 0)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
                                                                                         //user coordinates dont change so this can be static
                                                                                         //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
-
-            //StartingCanvas_loaded(); //incorrect now that theres a random starting region? Maybe I should duplicate the region if statements up here?          
+            BlankCanvas_Unloaded();
             CanvasRegionA_Unloaded();
             CanvasRegionB_Unloaded();
             CanvasRegionC_Unloaded();
             CanvasRegionD_Unloaded();
 
-            RegionSelect();
+            RegionSelect(); //Required to generate initial set of nodes and to support if statements below.
+
+            if (ActiveCanvas == CanvasRegionA)
+            {
+                CanvasRegionA_loaded();
+
+                CanvasRegionB_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionD_Unloaded();
+            }
+            else if (ActiveCanvas == CanvasRegionB)
+            {
+                CanvasRegionB_loaded();
+
+                CanvasRegionA_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionD_Unloaded();
+            }
+            else if (ActiveCanvas == CanvasRegionC)
+            {
+                CanvasRegionC_loaded();
+
+                CanvasRegionB_Unloaded();
+                CanvasRegionA_Unloaded();
+                CanvasRegionD_Unloaded();
+            }
+            else if (ActiveCanvas == CanvasRegionD)
+            {
+                CanvasRegionD_loaded();
+
+                CanvasRegionB_Unloaded();
+                CanvasRegionC_Unloaded();
+                CanvasRegionA_Unloaded();
+            }
+
+            var CReportSetsWindowLoaded = new List<List<CivillianReports>> { CivillianReportsSet1, CivillianReportsSet2, CivillianReportsSet3 };
+            lbxReportsC.ItemsSource = CReportSetsWindowLoaded[ReportsCrng.Next(CReportSetsWindowLoaded.Count)];
+
+            var GAlertsSetsWindowLoaded = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
+            lbxGeneralAlerts.ItemsSource = GAlertsSetsWindowLoaded[AlertsGrng.Next(GAlertsSetsWindowLoaded.Count)];
         }
+
+
+
+
 
         //Method to clear everything on screen and simulates the scenario process
         private void btnTesting_Click(object sender, RoutedEventArgs e)
@@ -132,11 +224,11 @@ namespace ProjectWorking
             tbxRegionDisplayed.Text = SelectedRegion; //Exact same process as above
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
 
-
+            int currentlocationselect = 0;
 
             //random user location on click
             tbxCurrentRegion.Text = SelectedRegion;
-            tbxNearestUserNode.Text = "Node1"; //can this be randomized?
+            tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)]; 
             tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; //change to correct x,y limits later
 
 
@@ -153,7 +245,7 @@ namespace ProjectWorking
 
 
             //Clear and draw nodes
-            StartingCanvas.Children.Clear(); //Again possibly irrelevent now
+            BlankCanvas.Children.Clear(); 
             CanvasRegionA.Children.Clear();
             CanvasRegionB.Children.Clear();
             CanvasRegionC.Children.Clear();
@@ -179,11 +271,19 @@ namespace ProjectWorking
 
 
             //Stretch goal is to randomize the message recipient and the custom message - use arrays
-            string[] AlertTypes = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" }; //restated as I couldnt use the one from the external class
+             //restated as I couldnt use the one from the external class
 
-            GeneralAlertsSet1.Add(new GeneralAlerts("All Teams", AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
-            //alt way to do it: GeneralAlertsSet1.Add(new GeneralAlerts("Command Center", $"AlertTypes[AlertsGrng.Next(0, 4)]", "Weather warning issued", DateTime.Now));
-            lbxGeneralAlerts.ItemsSource = GeneralAlertsSet1;
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], "System maintenance at 10 PM", DateTime.Now));
             //continue this pattern if system is unchanged once its fixed: URGENT
 
             //logic is, add stuff to all 3 lists, use a random list
@@ -196,13 +296,8 @@ namespace ProjectWorking
 
 
 
-
-
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
             //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
-
-
-
             for (int counter = 0; counter < 4; counter++)
             {
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
@@ -277,19 +372,16 @@ namespace ProjectWorking
         {
             switch (SelectedRegion)
             {
-                case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case "RegionB": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case "RegionC": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
-                case "RegionD": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); break;
+                case "RegionA": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); ActiveCanvas = CanvasRegionA; break;
+                case "RegionB": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); ActiveCanvas = CanvasRegionB; break;
+                case "RegionC": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); ActiveCanvas = CanvasRegionC; break;
+                case "RegionD": DrawEllipse(10, 50, 50, 50); DrawEllipse(50, 100, 50, 50); DrawEllipse(100, 150, 50, 50); DrawEllipse(150, 200, 50, 50); ActiveCanvas = CanvasRegionD; break;
             }
         }
 
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer) //no errors but section at bottom should be reworked
         {
-            //string[] Regions = new string[4] { "RegionA", "RegionB", "RegionC", "RegionD" };
-            //string SelectedRegion;
-
-            StartingCanvas_Unloaded();
+            BlankCanvas_Unloaded();
             //Unload the canvas with the starting content when any region is clicked
 
             var map = sender as Image; //"Map" is equal to the image property of the code line that this method/event is associated with
@@ -351,11 +443,10 @@ namespace ProjectWorking
             //tbxRegionDisplayed.Text = SelectedRegion;
             //alt way to do it
 
-
             MessageBox.Show($"{xPosition},{yPosition}");
 
             //redraw
-            StartingCanvas.Children.Clear();
+            BlankCanvas.Children.Clear();
             CanvasRegionA.Children.Clear();
             CanvasRegionB.Children.Clear();
             CanvasRegionC.Children.Clear();
@@ -367,10 +458,8 @@ namespace ProjectWorking
             };
             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             {
-                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //Reassess this logic here
+                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 10, 10); //Reassess this logic here
             }
-
-
         }
 
         /*private void Node_Click(object sender, RoutedEventArgs e) //dummy
@@ -382,25 +471,33 @@ namespace ProjectWorking
 
         private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e) //This should be fine
         {
-            //Get the node that is currently selected and read its information
-            //Get the id of the region the node is in
-            //Get its name
-            //Get its coordinates
 
             tbxDestinationRegion.Text = SelectedRegion; //The text of this box is equal to the currently established "SelectedRegion" at the time the button is pressed.
             tbxDestinationName.Text = tbxSelectedAreaName.Text;
             tbxDestinationCoordinates.Text = tbxSelectedCoordinates.Text;
         }
 
-        private void btnReportSubmission_Click(object sender, RoutedEventArgs e)
+        private void btnReportSubmission_Click(object sender, RoutedEventArgs e) //Method is correct
         {
-            string status = ""; //continue this pattern: URGENT
+            string status = "";
             if (rbRed.IsChecked == true)
             {
                 status = rbRed.Content.ToString();
             }
-            //else if (rb)
+            else if (rbOrange.IsChecked == true)
+            {
+                status = rbOrange.Content.ToString();
+            }
+            else if (rbGreen.IsChecked == true)
+            {
+                status = rbGreen.Content.ToString();
+            }
+            else if (rbBlack.IsChecked == true)
+            {
+                status = rbBlack.Content.ToString();
+            }
 
+            #region Other Report Submission Attempts
             //string Status = ActiveRadioButton.Content.ToString(); //= rbRed.IsChecked == true ? "In Need of Assistance" : rbOrange.IsChecked == true ? "Situation Being Managed" : 
             //rbGreen.IsChecked == true ? "Situation De-Escalated" : rbBlack.IsChecked == true ? "DANGER" : "Unknown";
 
@@ -429,15 +526,15 @@ namespace ProjectWorking
             //        rbBlack.IsChecked = true;
             //        break;
             //}
-
+            #endregion
 
             int TeamNumber = TeamNorng.Next(100, 999);
             string Coordindates = tbxCoordinatesReport.Text;
+            string Message = tbxReportMessage.Text;
 
             //Maybe I could somehow create a list of all real coordinates, either taken from active nodes or declared first and assigned to them
             //then check whats inputted here against that list for validation??
 
-            string Message = tbxReportMessage.Text;
 
 
 
@@ -461,19 +558,19 @@ namespace ProjectWorking
                     "DANGER" => Brushes.Black,
                 }; */
 
-                if (status == "In Need of Assistance") //this replaced the switch above but if it could be refactored instead it should be
+                if (status == rbRed.Content.ToString()) 
                 {
                     node.Ellipse.Fill = Brushes.Red;
                 }
-                if (status == "Situation Being Managed")
+                else if (status == rbOrange.Content.ToString())
                 {
                     node.Ellipse.Fill = Brushes.Orange;
                 }
-                if (status == "Situation De-Escalated")
+                else if (status == rbGreen.Content.ToString())
                 {
                     node.Ellipse.Fill = Brushes.Green;
                 }
-                if (status == "DANGER")
+                else if (status == rbBlack.Content.ToString())
                 {
                     node.Ellipse.Fill = Brushes.Black;
                 }
@@ -481,7 +578,7 @@ namespace ProjectWorking
                 {
                     node.Ellipse.Fill = Brushes.White;
                 }
-                tbxSelectedAreaName.Text = node.Name; //
+                tbxSelectedAreaName.Text = node.Name; 
                 tbxSelectedAreaName.Text = node.Coordinates;
 
             }
@@ -515,9 +612,6 @@ namespace ProjectWorking
             Canvas.SetTop(ellipse, y);
 
             // Add ellipse to Canvas (on top of the image)
-            //StartingCanvas.Children.Add(ellipse); //Change this to "active canvas" or some equivilant
-
-            Canvas ActiveCanvas;
 
             string region = SelectedRegion;
 
@@ -530,7 +624,7 @@ namespace ProjectWorking
             else if (region == "RegionD")
                 ActiveCanvas = CanvasRegionD;
             else
-                ActiveCanvas = StartingCanvas;
+                ActiveCanvas = BlankCanvas;
 
 
 
@@ -545,7 +639,7 @@ namespace ProjectWorking
             };
             Nodes.Add(SingleNode);
 
-            ellipse.MouseLeftButtonDown += (s, e) => //????????
+            ellipse.MouseLeftButtonDown += (s, e) => 
             {
                 tbxSelectedAreaName.Text = SingleNode.Name;
                 tbxSelectedCoordinates.Text = SingleNode.Coordinates;
@@ -564,9 +658,9 @@ namespace ProjectWorking
             };
         }
         #region Canvas' Unloaded
-        public void StartingCanvas_Unloaded()
+        public void BlankCanvas_Unloaded()
         {
-            StartingCanvas.Visibility = Visibility.Collapsed;
+            BlankCanvas.Visibility = Visibility.Collapsed;
         }
         public void CanvasRegionA_Unloaded()
         {
@@ -592,7 +686,7 @@ namespace ProjectWorking
         #region Canvas' Loaded
         public void StartingCanvas_loaded()
         {
-            StartingCanvas.Visibility = Visibility.Visible;
+            BlankCanvas.Visibility = Visibility.Visible;
 
         }
         public void CanvasRegionA_loaded()

@@ -40,10 +40,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        
-        <!-- Main Map -->
-        <Image Name="imgMain" Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
 
 
 
@@ -80,29 +76,29 @@
         <Rectangle x:Name="rectCity"  Stroke="Black"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
         <Rectangle x:Name="rectRegion"  Stroke="Black"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3"/>
 
-        <Image x:Name="CityMap0" Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" MouseDown="mdClickMap" Canvas.Left="943" Canvas.Top="-128"/>
+        <!-- Main Map, this is always loaded and is outside the interchangeable canvas' as a result -->
+        <Image x:Name="CityMap" Source="/images/MainMap.png" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" MouseDown="mdClickMap"/>
 
-        <Canvas Name="StartingCanvas">
-
-            <Image x:Name="RegionMap" Source="/images/RegionBlank.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
+        <Canvas Name="BlankCanvas">
+                                     <Image x:Name="RegionMap" Source="/images/RegionBlank.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10"/>
         </Canvas>
+        
         <Canvas Name="CanvasRegionA">
-
-            <Image x:Name="RegionAMap" Source="/images/RegionA.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Canvas.Left="-1097" Canvas.Top="-137"/>
+                                    <Image x:Name="RegionAMap" Source="/images/RegionA.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         </Canvas>
+        
         <Canvas Name="CanvasRegionB">
-
-            <Image x:Name="RegionBMap" Source="/images/RegionB.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Canvas.Left="-1067" Canvas.Top="52"/>
+                                    <Image x:Name="RegionBMap" Source="/images/RegionB.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         </Canvas>
+
         <Canvas Name="CanvasRegionC">
-
-            <Image x:Name="RegionCMap" Source="/images/RegionC.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Canvas.Left="-1187" Canvas.Top="481"/>
+                                    <Image x:Name="RegionCMap" Source="/images/RegionC.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         </Canvas>
+
         <Canvas Name="CanvasRegionD">
-
-            <Image x:Name="RegionDMap" Source="/images/RegionD.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Canvas.Left="-959" Canvas.Top="70"/>
+                                    <Image x:Name="RegionDMap" Source="/images/RegionD.png" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         </Canvas>
-
+        
         <Grid Grid.Column="0" Grid.Row="4" ShowGridLines="True" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
