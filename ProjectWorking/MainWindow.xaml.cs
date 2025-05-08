@@ -83,6 +83,12 @@ namespace ProjectWorking
 
         private List<Node> Nodes = new List<Node>(); //List of the Node class
 
+        //for creating responder reports
+        string status = null;
+        public int TeamNumber = 0;
+        public string Coordindates = null;
+        public string Message = null;
+
         //Random number generators
         public Random Regionrng = new Random();
         public Random Regionrng2 = new Random();
@@ -178,7 +184,7 @@ namespace ProjectWorking
 
             //random user location on start
             tbxCurrentRegion.Text = SelectedRegion;
-            tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)]; //can this be randomized?
+            tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)];
             tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
                                                                                         //user coordinates dont change so this can be static
                                                                                         //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
@@ -316,6 +322,13 @@ namespace ProjectWorking
                 RegionAlerts[counter].Add(new RegionAlerts(Regions[counter].Replace("Region", ""),
                 AlertTypes[AlertsRrng.Next(0, 4)], $"{RegionAlertTypes}, In Region: {Regions[counter]}", DateTime.Now)); //This should be targeted as a core "rewrite area"
 
+                switch (counter)
+                {
+                    case 0: lbxRegionAlerts1.ItemsSource = RegionAlerts[counter]; break;
+                    case 1: lbxRegionAlerts2.ItemsSource = RegionAlerts[counter]; break;
+                    case 2: lbxRegionAlerts3.ItemsSource = RegionAlerts[counter]; break;
+                    case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
+                }
             }
 
 
@@ -419,7 +432,7 @@ namespace ProjectWorking
                 CanvasRegionC_Unloaded();
                 CanvasRegionD_Unloaded();
             }
-            if (xPosition > 75 && yPosition < 52)
+            else if (xPosition > 75 && yPosition < 52)
             {
                 //rectRegion.image = regionB
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionB.png", UriKind.Relative));
@@ -430,7 +443,7 @@ namespace ProjectWorking
                 CanvasRegionC_Unloaded();
                 CanvasRegionD_Unloaded();
             }
-            if (xPosition < 75 && yPosition > 52)
+            else if (xPosition < 75 && yPosition > 52)
             {
                 //rectRegion.image = regionC
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionC.png", UriKind.Relative));
@@ -441,7 +454,7 @@ namespace ProjectWorking
                 CanvasRegionA_Unloaded();
                 CanvasRegionD_Unloaded();
             }
-            if (xPosition > 75 && yPosition > 52)
+            else if (xPosition > 75 && yPosition > 52)
             {
                 //rectRegion.image = regionD
                 RegionMap.Source = new BitmapImage(new Uri("/images/RegionD.png", UriKind.Relative));
@@ -493,7 +506,11 @@ namespace ProjectWorking
 
         private void btnReportSubmission_Click(object sender, RoutedEventArgs e) //Method is correct
         {
-            string status = "";
+            status = null;
+            TeamNumber = TeamNorng.Next(100, 999);
+            Coordindates = tbxCoordinatesReport.Text;
+            Message = tbxReportMessage.Text;
+
             if (rbRed.IsChecked == true)
             {
                 status = rbRed.Content.ToString();
@@ -509,6 +526,18 @@ namespace ProjectWorking
             else if (rbBlack.IsChecked == true)
             {
                 status = rbBlack.Content.ToString();
+            }
+            else if (status == null)
+            {
+                MessageBox.Show("Please select a status.");
+                return;
+
+            }
+            else 
+            {
+                MessageBox.Show("Error, please try again.");
+                return;
+
             }
 
             #region Other Report Submission Attempts
@@ -542,9 +571,7 @@ namespace ProjectWorking
             //}
             #endregion
 
-            int TeamNumber = TeamNorng.Next(100, 999);
-            string Coordindates = tbxCoordinatesReport.Text;
-            string Message = tbxReportMessage.Text;
+            
 
             //Maybe I could somehow create a list of all real coordinates, either taken from active nodes or declared first and assigned to them
             //then check whats inputted here against that list for validation??
@@ -698,7 +725,7 @@ namespace ProjectWorking
         #endregion
 
         #region Canvas' Loaded
-        public void StartingCanvas_loaded()
+        public void BlankCanvas_loaded()
         {
             BlankCanvas.Visibility = Visibility.Visible;
 
