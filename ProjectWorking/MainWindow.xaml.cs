@@ -36,7 +36,7 @@ namespace ProjectWorking
         public string[] RegionAlertTypes = new string[7]
         {"Electricity Grid Damage", "Water Supply Issues", "No Phone Signal", "Roads Blocked", "Flooding Damage", "Major Earthquake Damage", "Unrest/Active Riot"};
 
-        string[] PossibleMessages = new string[12] 
+        string[] PossibleMessagesR = new string[12] 
         {
             "Poor connection will result in inconsistent general and regional alerts for the time being, all teams will be updated once/if connection becomes reliable.",
             "Connection issues resolved, all updates should be recieved on either end at once until something changes.",
@@ -55,6 +55,27 @@ namespace ProjectWorking
 
             "All quakes are predicted to have stopped, anything felt from this point on should only be a tremor and its considered relatively safe to operate.",
             "Armed escort support currently unavailable - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone."
+        };
+
+        string[] PossibleMessagesC = new string[12]
+        {
+            "Hey people in this area have had trouble connecting to our side of the app, is there something wrong?",
+            "From what we can tell our messages are going throuhg properly now.",
+
+            "Theres been soldiers moving through our neighbourhood for the last few hours, they seemed friendly and relaxed.",
+            "this neighbourhood has been occupied by the enemy and none of us are allowed to leave our houses! i dont think its safe for emergency workers to enter",
+
+            "Our access to power has been really bad recently, power outages every few hours. Nobody has been able to check the block's energy station but messing around with home power grids doesnt help.",
+            "Power supply seems stable here - Ive heard reports from a friend who had to leave the suburbs that they were in total blackout so I thought I'd log that we're fine for the time being.",
+
+            "Putting it on record that ambulances and fire crews have been showing up pretty quick after we've called over the last few weeks, thank god that got sorted.",
+            "People here havent heard from an emergency worker in days! What the hell is going on? Responses were bad since this mess started but now we're getting radio silence! Help us!",
+
+            "Seen cops and our soldiers in the neighbourhood recently, hope they're doing alright.",
+            "for gods sakes somebody get the police and emergency lines sorted out we havent seen any in WEEKS! violence and looting is getting really bad we need them or the army here yesterday!!!",
+
+            "Havent felt any termors for the past day, unless something is predicted officially i think we're safe from quakes for now",
+            "Getting serious quakes every few minutes! Unless you can send helicopters dont come here!! Sheltering in place"
         };
 
 
@@ -105,7 +126,7 @@ namespace ProjectWorking
         //I am also unsure if these report instances should be created here or in the btnTesting_click method.
 
 
-
+        
 
         public MainWindow()
         {
@@ -116,29 +137,29 @@ namespace ProjectWorking
             //[List].add(new [class object type](however many properties it has));
 
             //Can objects of type CivillianReports be added to declared lists of the same type in the reports class?
-            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 17), "Test Report 1"));
-            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 18), "Test Report 2"));
-            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 19), "Test Report 3"));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 17), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 18), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 19), PossibleMessagesC[Messagerng.Next(0, 12)]));
 
-            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 10), "Test Report 4"));
-            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 11), "Test Report 5"));
-            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 12), "Test Report 6"));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 10), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 11), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet2.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 11, 12), PossibleMessagesC[Messagerng.Next(0, 12)]));
 
-            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 20), "Test Report 7"));
-            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 21), "Test Report 8"));
-            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 22), "Test Report 9"));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 20), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 21), PossibleMessagesC[Messagerng.Next(0, 12)]));
+            CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 22), PossibleMessagesC[Messagerng.Next(0, 12)]));
 
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
 
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
 
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
         }
 
 
@@ -158,7 +179,7 @@ namespace ProjectWorking
             //random user location on start
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)]; //can this be randomized?
-            tbxUserCoordinates.Text = $"{Userrng.Next(150, 0)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
+            tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
                                                                                         //user coordinates dont change so this can be static
                                                                                         //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
             BlankCanvas_Unloaded();
@@ -251,13 +272,13 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
-            //hard code positions for drawing elipse - irrelevant due to regionselect()
+            //hard code positions for drawing elipse -irrelevant due to regionselect()
             //double[,] NodePositions = new double[,]
             //{
-            //    { 10, 50 }, 
-            //    { 50, 100 }, 
-            //    { 100, 150 }, 
-            //    { 150, 200 } //not sure how this works
+            //    { 10, 50 },
+            //    { 50, 100 },
+            //    { 100, 150 },
+            //    { 150, 200 }
             //};
             //for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             //{
@@ -269,27 +290,22 @@ namespace ProjectWorking
             GeneralAlertsSet2.Clear();
             GeneralAlertsSet3.Clear();
 
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
 
-            //Stretch goal is to randomize the message recipient and the custom message - use arrays
-             //restated as I couldnt use the one from the external class
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
 
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet2.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
-            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessages[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
+            GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], DateTime.Now));
 
             //Adding one of the lists of general alerts to the general alerts list box
             var GAlertsSets = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
             lbxGeneralAlerts.ItemsSource = GAlertsSets[AlertsGrng.Next(GAlertsSets.Count)];
             //note that this is the same process as with choosing a random civillian reports set
-
 
 
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
@@ -375,6 +391,8 @@ namespace ProjectWorking
             }
         }
 
+
+
         public void mdClickMap(object sender, MouseButtonEventArgs MousePointer) //no errors but section at bottom should be reworked
         {
             BlankCanvas_Unloaded();
@@ -450,7 +468,7 @@ namespace ProjectWorking
 
             double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
             {
-                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions, but what are their basis?
+                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions
             };
             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             {
