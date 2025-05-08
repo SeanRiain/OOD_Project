@@ -34,10 +34,10 @@ namespace ProjectWorking
     {
         //string[] Regions = new string[4] { "A", "B", "C", "D" } ;
 
-        string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
+        //string[] NatureOfAlert = new string[4] { "Keep Viligant", "Maintain Contact", "Warning", "EVACUATE" };
 
         public string Region { get; set; }
-        //public string NatureOfAlert { get; set; }
+        public string NatureOfAlert { get; set; }
 
         string RegionAlertMessage { get; set; }
 
@@ -48,8 +48,8 @@ namespace ProjectWorking
             //if (!Regions.Contains(region)) throw new ArgumentException("Invalid Region");
             //if (!NatureOfAlerts.Contains(natureOfAlert)) throw new ArgumentException("Invalid NatureOfAlert");
 
-            //Region = RegionCon;
-            //NatureOfAlert = NatureOfAlertCon;
+            Region = RegionCon;
+            NatureOfAlert = NatureOfAlertCon;
 
             RegionAlertMessage = MessageCon;
             TimeSent = TimeSentCon;
