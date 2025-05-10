@@ -54,7 +54,27 @@ namespace ProjectWorking
             "Armed escort support currently unavailable - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone.",
 
             "All quakes are predicted to have stopped, anything felt from this point on should only be a tremor and its considered relatively safe to operate.",
-            "Armed escort support currently unavailable - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone."
+            "Unpredictable earthquakes are still occuring area-wide, do not attempt to travel under ANY circumstances and do not assist the public unless clearly safe to do so."
+        };
+        string[] PossibleRegionMessages = new string[12]
+        {
+            "Poor connection will result in inconsistent regional alerts for the time being, all teams in the area will be updated once/if connection becomes reliable.",
+            "Local connection issues resolved, all updates should be recieved on either end at once until something changes.",
+
+            "As per negotiations, it is safe for all teams to approach DESIGNATED combatants deployed in listed region until further notice.",
+            "Due to diplomatic failures, it is presently considered a risk for teams in the listed region to approach any combatant present. If approached or fired upon retreat immediately.",
+
+            "Local electricty blackouts are being reported by emergency workers and civillians, excercise caution and utilize low light equipment if working into the night.",
+            "Issues with the local power grid have been resolved, blackouts should not be occuring outside of isolated incidents - report any electricty grid issues encountered.",
+
+            "Firefighting support currently available in listed region for any team that requires it.",
+            "Firefighting support locally unavailable - a reminder to NOT attempt to intervene in significant fire related emergencies unless specifically trained.",
+
+            "Armed escort currently available in listed region for any team that requires it.",
+            "Armed escort support currently unavailable regionally - a reminder to NOT attempt to intervene in emergencies of civil unrest or looting alone.",
+
+            "Quakes are predicted to have stopped in the regional area, anything felt from this point on should only be a tremor and its considered relatively safe to operate.",
+            "Quakes of significant scale are predicted and reported to be ongoing in the area, shelter in place."
         };
 
         string[] PossibleMessagesC = new string[12]
@@ -119,7 +139,12 @@ namespace ProjectWorking
         public List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
 
         //This is a list of lists, would it be better to have it formatted like above with "RegionBAlerts" as the individual lists?
-        public List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>[4] {new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
+        //public List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>//[4] {new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
+        public List<RegionAlerts> RegionAlertsRegionA = new List<RegionAlerts>();
+        public List<RegionAlerts> RegionAlertsRegionB = new List<RegionAlerts>();
+        public List<RegionAlerts> RegionAlertsRegionC = new List<RegionAlerts>();
+        public List<RegionAlerts> RegionAlertsRegionD = new List<RegionAlerts>();
+
 
         //CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
         //CivillianReports Set1Report2 = new CivillianReports(449, (2014, 11, 17), "test");
@@ -132,7 +157,7 @@ namespace ProjectWorking
         //I am also unsure if these report instances should be created here or in the btnTesting_click method.
 
 
-        
+
 
         public MainWindow()
         {
@@ -155,6 +180,7 @@ namespace ProjectWorking
             CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 21), PossibleMessagesC[Messagerng.Next(0, 12)]));
             CivillianReportsSet3.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2015, 12, 22), PossibleMessagesC[Messagerng.Next(0, 12)]));
 
+
             GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
             GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
             GeneralAlertsSet1.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
@@ -166,6 +192,24 @@ namespace ProjectWorking
             GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
             GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
             GeneralAlertsSet3.Add(new GeneralAlerts(TeamOptions[TeamTyperng.Next(0, 7)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleMessagesR[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+
+            RegionAlertsRegionA.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionA.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionA.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+            RegionAlertsRegionB.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionB.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionB.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+            RegionAlertsRegionC.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionC.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionC.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
+            RegionAlertsRegionD.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionD.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+            RegionAlertsRegionD.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));
+
         }
 
 
@@ -234,6 +278,12 @@ namespace ProjectWorking
 
             var GAlertsSetsWindowLoaded = new List<List<GeneralAlerts>> { GeneralAlertsSet1, GeneralAlertsSet2, GeneralAlertsSet3 };
             lbxGeneralAlerts.ItemsSource = GAlertsSetsWindowLoaded[AlertsGrng.Next(GAlertsSetsWindowLoaded.Count)];
+
+            lbxRegionAlerts1.ItemsSource = RegionAlertsRegionA;
+            lbxRegionAlerts2.ItemsSource = RegionAlertsRegionB;
+            lbxRegionAlerts3.ItemsSource = RegionAlertsRegionC;
+            lbxRegionAlerts4.ItemsSource = RegionAlertsRegionD;
+
         }
 
 
@@ -316,6 +366,9 @@ namespace ProjectWorking
 
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
             //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
+
+
+            /*
             for (int counter = 0; counter < 4; counter++)
             {
                 RegionAlerts[counter].Clear(); //Clear all regionalerts sections once the counter value matches 
@@ -329,10 +382,20 @@ namespace ProjectWorking
                     case 2: lbxRegionAlerts3.ItemsSource = RegionAlerts[counter]; break;
                     case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
                 }
+            }*/
+
+            switch (SelectedRegion)
+            {
+                case "RegionA": RegionAlertsRegionA.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17)));; break;
+                case "RegionB": RegionAlertsRegionB.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17))); ; break;
+                case "RegionC": RegionAlertsRegionC.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17))); ; break;
+                case "RegionD": RegionAlertsRegionD.Add(new RegionAlerts(Regions[Regionrng.Next(0, 4)], AlertTypes[AlertsGrng.Next(0, 4)], PossibleRegionMessages[Messagerng.Next(0, 12)], new DateTime(2014, 10, 17))); ; break;
             }
 
-
-
+            lbxRegionAlerts1.ItemsSource = RegionAlertsRegionA;
+            lbxRegionAlerts2.ItemsSource = RegionAlertsRegionB;
+            lbxRegionAlerts3.ItemsSource = RegionAlertsRegionC;
+            lbxRegionAlerts4.ItemsSource = RegionAlertsRegionD;
 
             //Possibly choose a random region and node for the user location - affects the top left text boxes
 
