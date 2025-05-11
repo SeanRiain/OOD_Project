@@ -19,7 +19,7 @@ using System.Xml.Linq;
 
 //Please note, GenAI (xAI) was used in this project, however the vast majority of the code it generated - outside of small syntax corrections -
 //has been replaced, edited or commented out with the DrawEliplse method being the only remaining section that contains important code I could not write myself.
-//Main examples of commented out AI code can be found at lines 335, 376 and 549
+//Main examples of commented out AI code can be found at lines //317, 399, and 532
 
 //It should be noted that the second to last version of this project will contain substantially more comments than the first.
 //These comments include notes to self, logical questions, reminders etc. I have edited them out of the final submission for the sake of brevity.
@@ -133,19 +133,16 @@ namespace ProjectWorking
 
 
 
-        //Can Lists be declared in the reports class?
         public List<CivillianReports> CivillianReportsSet1 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet2 = new List<CivillianReports>();
         public List<CivillianReports> CivillianReportsSet3 = new List<CivillianReports>();
 
-        private List<ResponderReports> ResponderReports = new List<ResponderReports>(); //Does this need/can it have multiple sets?
+        private List<ResponderReports> ResponderReports = new List<ResponderReports>();
 
-        //Can lists be declared in the Alerts class?
         public List<GeneralAlerts> GeneralAlertsSet1 = new List<GeneralAlerts>();
         public List<GeneralAlerts> GeneralAlertsSet2 = new List<GeneralAlerts>();
         public List<GeneralAlerts> GeneralAlertsSet3 = new List<GeneralAlerts>();
 
-        //This is a list of lists, would it be better to have it formatted like above with "RegionBAlerts" as the individual lists?
         //public List<RegionAlerts>[] RegionAlerts = new List<RegionAlerts>//[4] {new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>(), new List<RegionAlerts>() };
         public List<RegionAlerts> RegionAlertsRegionA = new List<RegionAlerts>();
         public List<RegionAlerts> RegionAlertsRegionB = new List<RegionAlerts>();
@@ -153,28 +150,12 @@ namespace ProjectWorking
         public List<RegionAlerts> RegionAlertsRegionD = new List<RegionAlerts>();
 
 
-        //CivillianReports Set1Report1 = new CivillianReports(449, (2014, 11, 17), "test"); //CivillianReportsSet1.Add(Set1Report1);
-        //CivillianReports Set1Report2 = new CivillianReports(449, (2014, 11, 17), "test");
-        //CivillianReports Set1Report3 = new CivillianReports(449, (2014, 11, 17), "test");
-
-        //Once fixed, repeat this process with the others, then find a way for btnTesting to pick a random set and display that in the list box
-
-        //The same can be done for responderReports, but far more imporantly is the functionality of them being created by the user's interaction
-        //with the report submission section and submission of that information which is then displayed in the text box.
-        //I am also unsure if these report instances should be created here or in the btnTesting_click method.
-
-
-
-
         public MainWindow()
         {
             InitializeComponent();
 
             // Initialize CivillianReports sets
-            //This is the proper syntax for adding a class object to a list of the same type
-            //[List].add(new [class object type](however many properties it has));
 
-            //Can objects of type CivillianReports be added to declared lists of the same type in the reports class?
             CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 17), PossibleMessagesC[Messagerng.Next(0, 12)]));
             CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 18), PossibleMessagesC[Messagerng.Next(0, 12)]));
             CivillianReportsSet1.Add(new CivillianReports(SSNrng.Next(0, 999), new DateTime(2014, 10, 19), PossibleMessagesC[Messagerng.Next(0, 12)]));
@@ -236,9 +217,8 @@ namespace ProjectWorking
             //random user location on start
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)];
-            tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; //change to correct x,y limits later
-                                                                                        //user coordinates dont change so this can be static
-                                                                                        //if i want it marked on the map id need to have two variables above rather than randomly generating the coordinates in line
+            tbxUserCoordinates.Text = $"{Userrng.Next(0, 150)},{Userrng.Next(0, 150)}"; 
+                                                            
             BlankCanvas_Unloaded();
             CanvasRegionA_Unloaded();
             CanvasRegionB_Unloaded();
@@ -308,12 +288,11 @@ namespace ProjectWorking
             tbxRegionDisplayed.Text = SelectedRegion; //Exact same process as above
             RegionMap.Source = new BitmapImage(new Uri($"/images/{SelectedRegion}.png", UriKind.Relative));
 
-            //int currentlocationselect = 0; Perhaps attempt to use a matching to pair the user node with the coordinates?
 
             //random user location on click
             tbxCurrentRegion.Text = SelectedRegion;
             tbxNearestUserNode.Text = BlockNames[UserLocationrng.Next(0, 12)]; 
-            tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; //change to correct x,y limits later
+            tbxUserCoordinates.Text = $"{Userrng2.Next(0, 150)},{Userrng2.Next(0, 150)}"; 
 
 
 
@@ -335,6 +314,7 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
+            #region machine code node drawing
             //hard code positions for drawing elipse -irrelevant due to regionselect()
             //double[,] NodePositions = new double[,]
             //{
@@ -347,6 +327,7 @@ namespace ProjectWorking
             //{
             //    DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 50, 50); //this line NEEDS to be refactored or at least re-explained
             //}
+            #endregion
 
             // Generate alerts
             GeneralAlertsSet1.Clear(); //Clear out any items previously loaded to these lists 
@@ -374,7 +355,7 @@ namespace ProjectWorking
             //Generate new instances of RegionAlerts and randomly decide on which list box they should go in.
             //This should mean that seperate lists of RegionAlerts arent necessary, however that creates difficulty with making sure theres unique content in each box.
 
-
+            #region machine code region alerts population
             /*
             for (int counter = 0; counter < 4; counter++)
             {
@@ -390,6 +371,7 @@ namespace ProjectWorking
                     case 3: lbxRegionAlerts4.ItemsSource = RegionAlerts[counter]; break;
                 }
             }*/
+            #endregion
 
             switch (SelectedRegion)
             {
@@ -404,6 +386,7 @@ namespace ProjectWorking
             lbxRegionAlerts3.ItemsSource = RegionAlertsRegionC;
             lbxRegionAlerts4.ItemsSource = RegionAlertsRegionD;
 
+            #region logical code and planning
             //Possibly choose a random region and node for the user location - affects the top left text boxes
 
             //Create new civillian reports for *every* node and assign them to them so that lbxReportsC will display them upon click
@@ -413,10 +396,7 @@ namespace ProjectWorking
 
             //[Some sort of random select of the civillian reports sets]
             //lbxReportsC.ItemsSource = [the set of civillian reports chosen]
-
-            //Random RNGxy = new Random(); //Can this be used instead of hardcoding positions?
-            //Random Regions0to3 = new Random(); //how to set limits on a random??
-
+            #endregion
             #region RegionSelect Original Version
             ///* if (SelectedRegion == null)
             // {
@@ -549,23 +529,18 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
+            #region machine code node positioning
             //redundant due to RegionSelect()
-           /* double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
-            {
-                { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions
-            };
-            for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
-            {
-                DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 10, 10); //Reassess this logic here
-            } */
+            /* double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
+             {
+                 { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions
+             };
+             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
+             {
+                 DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 10, 10); //Reassess this logic here
+             } */
+            #endregion
         }
-
-        /*private void Node_Click(object sender, RoutedEventArgs e) //dummy
-        {
-            //Generate - OR load already established - class objects of both type Responder and type Civillian
-            //Populate their respective list boxes with these objects - can they be saved or must they be randomly generated every time?
-            //The three text boxes ***UNDER*** the left image should be affected by this click
-        } */
 
         private void btnMarkAsDestination_Click(object sender, RoutedEventArgs e) //This should be fine
         {
@@ -602,13 +577,11 @@ namespace ProjectWorking
             {
                 MessageBox.Show("Please select a status.");
                 return;
-
             }
             else 
             {
                 MessageBox.Show("Error, please try again.");
                 return;
-
             }
 
             #region Other Report Submission Attempts
@@ -642,13 +615,6 @@ namespace ProjectWorking
             //}
             #endregion
 
-            
-
-            //Maybe I could somehow create a list of all real coordinates, either taken from active nodes or declared first and assigned to them
-            //then check whats inputted here against that list for validation??
-
-
-
 
             var Report = new ResponderReports(status, TeamNumber, DateTime.Now, Message);
             //[this] = to a responder report with its constructer's arguiments equal to the variables declared above
@@ -662,6 +628,7 @@ namespace ProjectWorking
             //Update node color
             foreach (var node in Nodes)
             {
+                #region switch version
                 /* SingleNode.Ellipse.Fill = Status switch
                 {
                     "In Need of Assistance" => Brushes.Red,
@@ -669,6 +636,7 @@ namespace ProjectWorking
                     "Situation De-Escalated" => Brushes.Green,
                     "DANGER" => Brushes.Black,
                 }; */
+                #endregion
 
                 if (status == rbRed.Content.ToString()) 
                 {
@@ -694,7 +662,7 @@ namespace ProjectWorking
                 tbxSelectedAreaName.Text = node.Coordinates;
 
             }
-
+            #region logical notes
             //Read which radio button was selected
             //Read the coordinates inputted
             //Read the custom message - if any
@@ -705,6 +673,8 @@ namespace ProjectWorking
             ////Create a Responder report class object with the above values + the current time
             ////Change the node color based upon the radio button selection
             ////Populate the lbxReportsR with that class
+
+            #endregion
         }
 
 
@@ -823,6 +793,7 @@ namespace ProjectWorking
         }
         #endregion
 
+        #region logical notes and planning
         //Each node needs to be assigned unique coordinate value in the x,y format e.g "18,79"
 
         //Primary functionality is dependent on an 'on_click' method for the nodes in the top images.
@@ -847,5 +818,6 @@ namespace ProjectWorking
         //Master button called "btnTesting".
         //Intended to randomly generate some or all of the currently static values
         //such as starting node status', the user location, the general alerts and the region alerts.
+        #endregion
     }
 }
