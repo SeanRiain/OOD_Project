@@ -17,6 +17,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 
+//Please note, GenAI (xAI) was used in this project, however the vast majority of the code it generated - outside of small syntax corrections -
+//has been replaced, edited or commented out with the DrawEliplse method being the only remaining section that contains important code I could not write myself.
+//Main examples of commented out AI code can be found at lines 335, 376 and 549
+
+//It should be noted that the second to last version of this project will contain substantially more comments than the first.
+//These comments include notes to self, logical questions, reminders etc. I have edited them out of the final submission for the sake of brevity.
+
 namespace ProjectWorking
 {
     public partial class MainWindow : Window
@@ -542,14 +549,15 @@ namespace ProjectWorking
             CanvasRegionC.Children.Clear();
             CanvasRegionD.Children.Clear();
 
-            double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
+            //redundant due to RegionSelect()
+           /* double[,] NodePositions = new double[,] //This should be targeted as a core "rewrite area"
             {
                 { 10, 50 }, { 50, 100 }, { 100, 150 }, { 150, 200 } //these are x,y positions
             };
             for (int counter = 0; counter < NodePositions.GetLength(0); counter++) //As long as the counter is less than the amount of elements in the array do the following
             {
                 DrawEllipse(NodePositions[counter, 0], NodePositions[counter, 1], 10, 10); //Reassess this logic here
-            }
+            } */
         }
 
         /*private void Node_Click(object sender, RoutedEventArgs e) //dummy
@@ -737,13 +745,13 @@ namespace ProjectWorking
             var SingleNode = new Node
             {
                 Region = SelectedRegion,
-                Name = $"Node_{Nodes.Count + 1}", //This is mostly fine, it would be good if they had custom string names e.g. "Sea Street" but this works
-                Coordinates = $"{x},{y}", //Im worried about if these are correctly communicating with the actual values
+                Name = $"Node_{Nodes.Count + 1}",
+                Coordinates = $"{x},{y}", 
                 Ellipse = ellipse
             };
             Nodes.Add(SingleNode);
 
-            ellipse.MouseLeftButtonDown += (s, e) => 
+            ellipse.MouseLeftButtonDown += (s, e) => //this line and formatting was done by machine code
             {
                 tbxSelectedAreaName.Text = SingleNode.Name;
                 tbxSelectedCoordinates.Text = SingleNode.Coordinates;
